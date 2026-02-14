@@ -1,0 +1,280 @@
+/**
+ * Gasker Content Refresher - Admin Styles
+ */
+
+.gcr-admin-wrap {
+    margin-top: 20px;
+}
+
+.gcr-admin-container {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* 左側設定面板 */
+.gcr-settings-panel {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+
+.gcr-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.gcr-section:last-child {
+    border-bottom: none;
+}
+
+.gcr-section h2 {
+    margin-top: 0;
+    padding-top: 0;
+    font-size: 18px;
+    border-bottom: none;
+}
+
+/* 右側操作面板 */
+.gcr-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.gcr-panel {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+
+.gcr-panel h3 {
+    margin-top: 0;
+    font-size: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* 狀態表格 */
+.gcr-status-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.gcr-status-table td {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.gcr-status-table td:first-child {
+    font-weight: 600;
+    width: 40%;
+}
+
+.gcr-status-active {
+    color: #00a32a;
+    font-weight: 600;
+}
+
+.gcr-status-inactive {
+    color: #d63638;
+    font-weight: 600;
+}
+
+/* 提示列表 */
+.gcr-tips {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.gcr-tips li {
+    margin-bottom: 5px;
+}
+
+/* 按鈕 */
+.gcr-run-now {
+    margin-bottom: 10px;
+}
+
+.gcr-run-now.loading {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* 日誌區域 */
+.gcr-logs-section {
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+
+.gcr-logs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #2271b1;
+}
+
+.gcr-logs-header h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+}
+
+.gcr-no-logs {
+    text-align: center;
+    padding: 40px 0;
+    color: #646970;
+    font-style: italic;
+}
+
+.gcr-logs-table {
+    margin-top: 0;
+}
+
+.gcr-logs-table th {
+    background-color: #f6f7f7;
+    font-weight: 600;
+}
+
+.gcr-logs-table td {
+    vertical-align: middle;
+}
+
+.gcr-logs-table .gcr-success {
+    color: #00a32a;
+    font-weight: 600;
+}
+
+.gcr-logs-table .gcr-failed {
+    color: #d63638;
+    font-weight: 600;
+}
+
+.gcr-logs-table .gcr-skipped {
+    color: #dba617;
+    font-weight: 600;
+}
+
+/* 日誌詳細資訊 */
+.gcr-log-details td {
+    padding: 0 !important;
+    background-color: #f6f7f7;
+}
+
+.gcr-log-details table {
+    margin: 0;
+    border: none;
+}
+
+.gcr-log-details table th {
+    background-color: #e5e5e5;
+    font-size: 12px;
+}
+
+.gcr-log-details table td {
+    font-size: 13px;
+    padding: 8px 10px !important;
+}
+
+/* 狀態標籤 */
+.gcr-status-success,
+.gcr-status-failed,
+.gcr-status-skipped {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.gcr-status-success {
+    background-color: #d7f8e0;
+    color: #00a32a;
+}
+
+.gcr-status-failed {
+    background-color: #fdd;
+    color: #d63638;
+}
+
+.gcr-status-skipped {
+    background-color: #fcf3cd;
+    color: #996800;
+}
+
+/* 響應式設計 */
+@media screen and (max-width: 1200px) {
+    .gcr-admin-container {
+        grid-template-columns: 1fr;
+    }
+
+    .gcr-sidebar {
+        grid-row: 1;
+    }
+
+    .gcr-settings-panel {
+        grid-row: 2;
+    }
+}
+
+/* 通知樣式 */
+.gcr-notification {
+    position: fixed;
+    top: 32px;
+    right: 20px;
+    max-width: 400px;
+    padding: 15px 20px;
+    background: #fff;
+    border-left: 4px solid #2271b1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 99999;
+    animation: slideIn 0.3s ease-out;
+}
+
+.gcr-notification.success {
+    border-left-color: #00a32a;
+}
+
+.gcr-notification.error {
+    border-left-color: #d63638;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 載入動畫 */
+.gcr-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #2271b1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
