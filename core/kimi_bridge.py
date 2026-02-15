@@ -52,7 +52,7 @@ class KimiBridge:
             masked_key = f"{self.api_key[:6]}...{self.api_key[-4:]}" if self.api_key else "None"
             logger.info(f"🚀 發送 Kimi API 請求 (Thinking: {use_thinking}, Key: {masked_key})...")
             
-            response = requests.post(endpoint, headers=self.headers, json=payload, timeout=120)
+            response = requests.post(endpoint, headers=self.headers, json=payload, timeout=300)
             
             if response.status_code != 200:
                 logger.error(f"❌ Kimi API 錯誤: {response.status_code} - {response.text}")

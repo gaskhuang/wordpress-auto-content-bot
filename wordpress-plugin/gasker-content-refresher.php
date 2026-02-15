@@ -93,6 +93,40 @@ class Gasker_Content_Refresher
 
         // 載入文字域
         add_action('plugins_loaded', array($this, 'load_textdomain'));
+
+        // 註冊 Shortcode
+        add_shortcode('gasker_schema', array($this, 'render_schema_shortcode'));
+    }
+
+    /**
+     * Shortcode: [gasker_schema]JSON[/gasker_schema]
+     * 用於輸出 JSON-LD Schema，避免被 WordPress 過濾器移除 script 標籤
+     */
+    public function render_schema_shortcode($atts, $content = null)
+    {
+        if (empty($content)) {
+            return '';
+        }
+
+        // 嘗試 Base64 解碼 (解決 WordPress Shortcode 遇到 ] 符號中斷的問題)
+        $decoded = base64_decode($content, true);
+        if ($decoded !== false && json_decode($decoded) !== null) {
+            $json_content = $decoded;
+        } else {
+            // 如果不是 Base64，則走原本的處理邏輯 (相容舊版)
+            // 解碼 HTML 實體 (避免 WordPress 將引號轉為 &quot;)
+            $json_content = html_entity_decode($content);
+
+            // 移除可能被自動加入的 p 標籤或 br 標籤
+            $json_content = strip_tags($json_content);
+
+            // 替換智慧引號為標準引號 (Critical for JSON validity)
+            $search = array('&#8220;', '&#8221;', '&#8243;', '&#8217;', '&#8216;', '&rdquo;', '&ldquo;', '“', '”', '’', '‘');
+            $replace = array('"', '"', '"', "'", "'", '"', '"', '"', '"', "'", "'");
+            $json_content = str_replace($search, $replace, $json_content);
+        }
+
+        return '<script type="application/ld+json">' . $json_content . '</script>';
     }
 
     /**
@@ -521,11 +555,11 @@ class Gasker_Content_Refresher
 
                 // 建立新文章
                 $post_data = array(
-                    'post_title'   => $topic,
+                    'post_title' => $topic,
                     'post_content' => $content,
-                    'post_status'  => $post_status,
-                    'post_type'    => 'post',
-                    'post_author'  => get_current_user_id() ?: 1,
+                    'post_status' => $post_status,
+                    'post_type' => 'post',
+                    'post_author' => get_current_user_id() ?: 1,
                 );
 
                 if ($category_id > 0) {

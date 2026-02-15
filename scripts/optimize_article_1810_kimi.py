@@ -14,6 +14,8 @@ from dotenv import load_dotenv
 STRUCTURE_LOCK_PROMPT = """
 你是一位結合 SEO、AEO 與 GEO 的專業內容策略顧問。請依照以下嚴格規範，為主題「國際研討會 – 臨時IT網路支援」重新撰寫一篇文章。
 
+⚠️ **重要規範：所有輸出內容必須使用「繁體中文 (台灣使用者習慣用語)」。嚴禁使用簡體中文或中國大陸用語（如：信息、質量、視頻、互聯網等，請改為：資訊、品質、影片、網際網路）。**
+
 一、角色與寫作定位
 - 以產業內行人/專家視角撰寫
 - 滿足：人類讀者（好讀）、搜尋引擎（好收錄）、AI 助手（好引用）
@@ -89,11 +91,11 @@ def optimize_article_kimi():
         print("❌ 錯誤: 未設定 MOONSHOT_API_KEY，無法執行 Kimi 優化。")
         return
 
-    print(f"🚀 開始使用 Kimi 2.5 優化文章 {post_id}...")
+    print(f"🚀 開始使用 Kimi 2.5 優化文章 {post_id} (強制繁體中文)...")
 
     # 2. 呼叫 Kimi 生成內容
     messages = [
-        {"role": "system", "content": "You are a strict content strategist following a specific structure."},
+        {"role": "system", "content": "You are a strict content strategist. You MUST write in Traditional Chinese (Taiwan)."},
         {"role": "user", "content": STRUCTURE_LOCK_PROMPT}
     ]
     
@@ -107,10 +109,9 @@ def optimize_article_kimi():
     content = re.sub(r"^```html", "", content, flags=re.MULTILINE)
     content = re.sub(r"^```", "", content, flags=re.MULTILINE)
     
-    # 3. 補充 JSON-LD (雖然 Kimi 可以寫，但用程式補比較穩)
-    faq_schema = """
-    <script type="application/ld+json">
-    {
+    # 3. 補充 JSON-LD (壓縮為單行以避免 wpautop 或 WordPress 編輯器破壞 <script> 標籤)
+    # 使用 json.dumps 確保格式正確且無換行
+    faq_data = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
@@ -140,12 +141,91 @@ def optimize_article_kimi():
         }
       ]
     }
-    </script>
-    """
     
-    final_content = content + "\n" + faq_schema
+    import base64
+    # 轉換為 JSON string
+    json_string = json.dumps(faq_data, ensure_ascii=False)
+    
+    # Base64 編碼以避免 WordPress Shortcode 解析問題 (特別是 ] 符號)
+    json_b64 = base64.b64encode(json_string.encode('utf-8')).decode('utf-8')
+    
+    # 使用 Shortcode 包裝
+    faq_schema = f'[gasker_schema]{json_b64}[/gasker_schema]'
+    
+    final_content = content + "\n\n" + faq_schema
 
-    # 4. 更新 WordPress
+    # 4. 生成與上傳圖片
+    try:
+        from core.image_gen_bridge import ImageGenBridge
+        img_gen = ImageGenBridge()
+        
+        if img_gen.client:
+            print("🎨 開始生成圖片...")
+            
+            # A. 精選圖片 (Title)
+            feat_img_prompt = f"A professional, high-quality, realistic photo for a business article titled: {new_title}. Concept: Modern IT support, seminars, high-tech network stability."
+            feat_img_url = img_gen.generate_image(feat_img_prompt)
+            feat_media_id = None
+            
+            if feat_img_url:
+                local_path = f"featured_{post_id}.png"
+                if img_gen.download_image(feat_img_url, local_path):
+                    media_res = wp.upload_media(local_path, title=new_title)
+                    if media_res:
+                        feat_media_id = media_res.get('id')
+                        print(f"✅ 精選圖片上傳成功 ID: {feat_media_id}")
+                    os.remove(local_path)
+
+            # B. 內文圖片 (取代 <!-- IMAGE_PLACEHOLDER --> 及插入其他段落)
+            # 這裡簡單解析前幾段文字作為 Prompt
+            # 移除 HTML 標籤取純文字
+            clean_text = re.sub(r'<[^>]+>', '', content)
+            paragraphs = [p.strip() for p in clean_text.split('\n') if len(p.strip()) > 20]
+            
+            # 產生 3 張內文圖
+            content_images = []
+            for i in range(min(3, len(paragraphs))):
+                prompt = f"Professional photo illustrating: {paragraphs[i][:100]}. Context: IT support, conference, network engineering, realistic style."
+                img_url = img_gen.generate_image(prompt)
+                if img_url:
+                    l_path = f"content_{post_id}_{i}.png"
+                    if img_gen.download_image(img_url, l_path):
+                        m_res = wp.upload_media(l_path, title=f"Content Image {i+1}")
+                        if m_res:
+                            src = m_res.get('source_url') # 或 'guid' -> 'rendered'
+                            # 嘗試獲取 source_url，如果是 None 則 fallback
+                            if not src and 'guid' in m_res:
+                                src = m_res['guid']['rendered']
+                                
+                            img_html = f'<figure class="wp-block-image size-large"><img src="{src}" alt="Content Image {i+1}"/></figure>'
+                            content_images.append(img_html)
+                        os.remove(l_path)
+            
+            # 插入圖片到內容中
+            # 1. 取代 Placeholder
+            if content_images:
+                if "<!-- IMAGE_PLACEHOLDER -->" in final_content:
+                    final_content = final_content.replace("<!-- IMAGE_PLACEHOLDER -->", content_images[0], 1)
+                    # 剩餘圖片插入到 H2 之前
+                    remaining_imgs = content_images[1:]
+                else:
+                    remaining_imgs = content_images
+
+                # 簡單插入邏輯：插在 H2 標籤前
+                parts = final_content.split('<h2>')
+                new_assembled = parts[0]
+                img_idx = 0
+                for part in parts[1:]:
+                    if img_idx < len(remaining_imgs):
+                        new_assembled += remaining_imgs[img_idx] + "\n"
+                        img_idx += 1
+                    new_assembled += "<h2>" + part
+                final_content = new_assembled
+
+    except Exception as e:
+        print(f"⚠️ 圖片生成流程發生錯誤 (不影響文章發布): {e}")
+
+    # 5. 更新 WordPress
     new_title = "國際研討會臨時 IT 網路支援：高密度連線解決方案 (2026 AEO版)"
     
     print("🔄 正在寫入 WordPress...")
@@ -153,7 +233,8 @@ def optimize_article_kimi():
         post_id=post_id,
         title=new_title,
         content=final_content,
-        status="publish" 
+        status="publish",
+        featured_media=feat_media_id 
     )
 
     if result:

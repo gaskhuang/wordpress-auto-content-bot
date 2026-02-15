@@ -4,14 +4,19 @@ generate_posts.py — AI 新文章生成器 (Python 版，多模型支援)
 透過 AI API 生成符合 GEO 黃金骨架結構的部落格文章，
 再透過 WordPress REST API + 應用程式密碼直接發布，不需安裝任何 WordPress 插件。
 
-支援模型: DeepSeek V3.2, GPT-5.2, Kimi K2.5, Gemini 3 Pro, GPT-4o 等
+支援模型:
+  - DeepSeek V3.2 / R1 (via GMI Cloud)
+  - GPT-5.2 (via GMI Cloud)
+  - GPT-4o / 4o-mini (via OpenAI)
+  - Kimi K2.5 (via Moonshot AI)
+  - Gemini 3 Pro (via Google)
 
 使用方式：
     python scripts/generate_posts.py                              # 預設: gpt-4o, 1 篇草稿
-    python scripts/generate_posts.py --model deepseek-chat        # 用 DeepSeek V3.2
-    python scripts/generate_posts.py --model gpt-5.2              # 用 GPT-5.2
-    python scripts/generate_posts.py --model kimi-k2.5            # 用 Kimi K2.5
-    python scripts/generate_posts.py --model gemini-3-pro         # 用 Gemini 3 Pro
+    python scripts/generate_posts.py --model deepseek-chat        # DeepSeek V3.2 (GMI)
+    python scripts/generate_posts.py --model gpt-5.2              # GPT-5.2 (GMI)
+    python scripts/generate_posts.py --model kimi-k2.5            # Kimi K2.5 (Moonshot)
+    python scripts/generate_posts.py --model gemini-3-pro         # Gemini 3 Pro (Google)
     python scripts/generate_posts.py --count 3 --status draft     # 3 篇草稿
     python scripts/generate_posts.py --dry-run                    # 只生成不發布
     python scripts/generate_posts.py --list-models                # 列出所有可用模型
@@ -52,7 +57,26 @@ LANGUAGE_MAP = {
 # ─── 多模型註冊表 ───
 # 所有模型都透過 OpenAI 相容 API 呼叫，只需切換 base_url 和 API key
 MODEL_REGISTRY = {
-    # ── OpenAI ──
+    # ── GMI Cloud (DeepSeek + GPT-5.2) ──
+    "deepseek-chat": {
+        "base_url": "https://api.gmi-serving.com/v1",
+        "api_key_env": "GMI_API_KEY",
+        "model": "deepseek-ai/DeepSeek-V3.2",
+        "label": "DeepSeek V3.2 Chat (GMI Cloud)",
+    },
+    "deepseek-reasoner": {
+        "base_url": "https://api.gmi-serving.com/v1",
+        "api_key_env": "GMI_API_KEY",
+        "model": "deepseek-ai/DeepSeek-R1",
+        "label": "DeepSeek R1 Reasoner (GMI Cloud)",
+    },
+    "gpt-5.2": {
+        "base_url": "https://api.gmi-serving.com/v1",
+        "api_key_env": "GMI_API_KEY",
+        "model": "gpt-5.2",
+        "label": "GPT-5.2 (GMI Cloud)",
+    },
+    # ── OpenAI 直連 ──
     "gpt-4o": {
         "base_url": None,  # 使用預設 OpenAI endpoint
         "api_key_env": "OPENAI_API_KEY",
@@ -64,25 +88,6 @@ MODEL_REGISTRY = {
         "api_key_env": "OPENAI_API_KEY",
         "model": "gpt-4o-mini",
         "label": "GPT-4o Mini (OpenAI)",
-    },
-    "gpt-5.2": {
-        "base_url": None,
-        "api_key_env": "OPENAI_API_KEY",
-        "model": "gpt-5.2",
-        "label": "GPT-5.2 (OpenAI)",
-    },
-    # ── DeepSeek V3.2 ──
-    "deepseek-chat": {
-        "base_url": "https://api.deepseek.com",
-        "api_key_env": "DEEPSEEK_API_KEY",
-        "model": "deepseek-chat",
-        "label": "DeepSeek V3.2 Chat",
-    },
-    "deepseek-reasoner": {
-        "base_url": "https://api.deepseek.com",
-        "api_key_env": "DEEPSEEK_API_KEY",
-        "model": "deepseek-reasoner",
-        "label": "DeepSeek V3.2 Reasoner",
     },
     # ── Kimi K2.5 (Moonshot AI) ──
     "kimi-k2.5": {
