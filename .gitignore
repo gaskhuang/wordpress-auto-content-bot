@@ -14,5 +14,9 @@ __pycache__/
 .vscode/
 .idea/
 
+# 產出資料夾（自動產生的發文腳本）
+output/
+
 # Brain
 brain/
+

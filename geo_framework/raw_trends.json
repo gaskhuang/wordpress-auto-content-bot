@@ -1,0 +1,89 @@
+{
+    "scrape_date": "2026-02-16",
+    "scrape_method": "search_web (Zero-API Mode)",
+    "total_sources": 28,
+    "sources_summary": [
+        "Search Engine Journal - GEO/AEO Benchmarks",
+        "Primotech - GEO Best Practices 2025",
+        "digidop.com - Structured Data for GEO",
+        "collectiveaudience.co - AI Citation Optimization",
+        "nextnw.org - GEO Strategy Guide",
+        "firebrand.marketing - LLM-Ready Content",
+        "llmrefs.com - AI Visibility Framework",
+        "geostar.ai - Source of Truth Strategy"
+    ],
+    "extracted_tips": [
+        {
+            "id": "tip-2026-001",
+            "category": "結構化數據",
+            "title": "JSON-LD FAQPage Schema 強化",
+            "description": "每篇文章必須包含 FAQPage JSON-LD Schema，明確標記 Q&A 配對，讓 AI 系統能直接提取問答內容作為生成式回覆。",
+            "source": "digidop.com, thedigitalbloom.com",
+            "confidence": "high",
+            "actionable": true
+        },
+        {
+            "id": "tip-2026-002",
+            "category": "結構化數據",
+            "title": "Article Schema + dateModified 時效訊號",
+            "description": "使用 Article Schema 並確保 dateModified 欄位總是更新為最新編輯日期。AI 引擎偏好時效性高的內容來源。",
+            "source": "amivisibleonai.com, sarmlife.com",
+            "confidence": "high",
+            "actionable": true
+        },
+        {
+            "id": "tip-2026-003",
+            "category": "E-E-A-T",
+            "title": "Author Schema + 專家身分標記",
+            "description": "為每篇文章加入 Author Schema，連結至已驗證的專家身分。對 YMYL 類主題尤其關鍵，AI 更傾向引用有明確作者身分的內容。",
+            "source": "amivisibleonai.com, briskon.com",
+            "confidence": "high",
+            "actionable": true
+        },
+        {
+            "id": "tip-2026-004",
+            "category": "AI 可讀性",
+            "title": "Answer-First 段落設計",
+            "description": "每個 H2/H3 區段的第一句話必須是可被 AI 直接提取的「摘要答案」，採用因果句型或定義句型。AI 引擎偏好在段落開頭就找到核心答案。",
+            "source": "primotech.com, aisinnovate.com",
+            "confidence": "high",
+            "actionable": true
+        },
+        {
+            "id": "tip-2026-005",
+            "category": "AI 可讀性",
+            "title": "模組化段落 + 語義自足",
+            "description": "每個段落必須語義自足（Self-contained），不依賴上下文就能被 AI 獨立引用。避免使用「如前所述」「上面提到的」等回溯語句。",
+            "source": "firebrand.marketing, collectiveaudience.co",
+            "confidence": "high",
+            "actionable": true
+        },
+        {
+            "id": "tip-2026-006",
+            "category": "引用優化",
+            "title": "Prompt Audit — 檢測 AI 是否引用你",
+            "description": "定期在 ChatGPT/Perplexity/Gemini 中搜尋你的品牌關鍵字，觀察 AI 是否引用你的內容。找出「引用缺口」(Citation Gap) 並優先補強這些主題。",
+            "source": "primotech.com, geostar.ai",
+            "confidence": "high",
+            "actionable": true
+        },
+        {
+            "id": "tip-2026-007",
+            "category": "引用優化",
+            "title": "跨平台品牌提及 (Off-Page GEO)",
+            "description": "AI 系統不僅從你的網站學習，也從 Reddit、Quora、Medium 等平台收集品牌資訊。在這些平台建立一致的品牌提及和高權重反向鏈接。",
+            "source": "nextnw.org, walkersands.com, medium.com",
+            "confidence": "high",
+            "actionable": true
+        },
+        {
+            "id": "tip-2026-008",
+            "category": "內容策略",
+            "title": "原創數據 = AI 引用磁鐵",
+            "description": "發布獨家數據、研究報告、基準測試結果。AI 系統更傾向引用提供獨特見解和原創數據的來源，而非重複市面上已有的資訊。",
+            "source": "lauramohiuddin.com, primotech.com",
+            "confidence": "high",
+            "actionable": true
+        }
+    ]
+}

@@ -11,11 +11,16 @@ trend_analyzer.py — AI 趨勢分析器
 """
 
 import os
+import sys
+import re
 import json
 import logging
 import argparse
 from datetime import datetime
 from dotenv import load_dotenv
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "core"))
+from retry_utils import retry_with_backoff
 
 load_dotenv()
 
@@ -30,6 +35,51 @@ BASE_DIR = os.path.dirname(__file__)
 DEFAULT_INPUT = os.path.join(BASE_DIR, "raw_trends.json")
 DEFAULT_OUTPUT = os.path.join(BASE_DIR, "analyzed_tips.json")
 FRAMEWORK_PATH = os.path.join(BASE_DIR, "geo_framework.md")
+
+# ── Prompt Injection 消毒 ──
+
+# 可能用於 prompt injection 的模式
+_INJECTION_PATTERNS = [
+    r'(?i)ignore\s+(all\s+)?previous\s+instructions',
+    r'(?i)disregard\s+(all\s+)?(above|prior|previous)',
+    r'(?i)you\s+are\s+now\s+',
+    r'(?i)new\s+instructions?\s*:',
+    r'(?i)system\s*:\s*',
+    r'(?i)override\s+(all\s+)?rules',
+    r'(?i)forget\s+(everything|all)',
+    r'(?i)act\s+as\s+(a\s+)?',
+    r'(?i)do\s+not\s+follow',
+    r'(?i)output\s+(your|the|all)\s+(api|secret|key|prompt|instruction)',
+]
+_INJECTION_RE = re.compile('|'.join(_INJECTION_PATTERNS))
+
+
+def sanitize_text(text):
+    """
+    消毒貼文內容，防止 prompt injection。
+    - 移除可疑的指令性語句
+    - 截斷過長文字
+    - 移除不可見/控制字元
+    """
+    if not text:
+        return ""
+
+    # 移除控制字元（保留換行和空白）
+    text = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', text)
+
+    # 偵測並替換 injection 模式
+    if _INJECTION_RE.search(text):
+        logger.warning(f"⚠️ 偵測到可疑 prompt injection 模式，已消毒")
+        text = _INJECTION_RE.sub('[已移除可疑指令]', text)
+
+    # 移除 markdown/HTML 中可能用來偽裝指令的區塊
+    text = re.sub(r'```[\s\S]*?```', '[程式碼區塊已移除]', text)
+
+    # 截斷過長文字
+    if len(text) > 500:
+        text = text[:500] + "..."
+
+    return text.strip()
 
 # AI 分析 Prompt
 ANALYSIS_PROMPT = """你是 SEO/AEO/GEO 寫作規範的維護者。你的任務是從社群媒體貼文中提取「可直接應用於繁體中文部落格」的寫作技巧。
@@ -93,11 +143,14 @@ def analyze_with_openai(raw_posts, existing_framework):
 
     client = openai.OpenAI(api_key=api_key)
 
-    # 準備貼文摘要 (限制 Token 消耗)
+    # 準備貼文摘要 (限制 Token 消耗 + 消毒防護)
     posts_text = ""
     for i, post in enumerate(raw_posts[:30]):  # 最多 30 篇
+        safe_text = sanitize_text(post.get('text', ''))
+        safe_title = sanitize_text(post.get('title', ''))
         posts_text += f"\n---\n[{i+1}] 來源: {post.get('source')} | 互動: {post.get('engagement', 0)}\n"
-        posts_text += f"內容: {post.get('text', '')[:300]}\n"
+        posts_text += f"標題: {safe_title}\n"
+        posts_text += f"內容: {safe_text}\n"
         posts_text += f"URL: {post.get('url', '')}\n"
 
     prompt = ANALYSIS_PROMPT.format(
@@ -105,7 +158,7 @@ def analyze_with_openai(raw_posts, existing_framework):
         raw_posts=posts_text
     )
 
-    try:
+    def _call_openai():
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}],
@@ -114,7 +167,6 @@ def analyze_with_openai(raw_posts, existing_framework):
         )
         result_text = response.choices[0].message.content
         result = json.loads(result_text)
-        # 支援 {"tips": [...]} 或直接 [...]
         if isinstance(result, dict) and "tips" in result:
             return result["tips"]
         elif isinstance(result, list):
@@ -122,8 +174,16 @@ def analyze_with_openai(raw_posts, existing_framework):
         else:
             logger.warning(f"AI 回傳格式異常: {type(result)}")
             return []
+
+    try:
+        return retry_with_backoff(
+            _call_openai,
+            max_retries=3,
+            base_delay=2.0,
+            max_delay=30.0,
+        )
     except Exception as e:
-        logger.error(f"OpenAI API 呼叫失敗: {e}")
+        logger.error(f"OpenAI API 呼叫失敗（已重試 3 次）: {e}")
         return []
 
 
@@ -138,8 +198,8 @@ def analyze_locally(raw_posts):
             continue
         seen_urls.add(url)
         tips.append({
-            "tip": post.get("title", post.get("text", "")[:80]),
-            "detail": post.get("text", "")[:200],
+            "tip": sanitize_text(post.get("title", post.get("text", "")[:80])),
+            "detail": sanitize_text(post.get("text", "")[:200]),
             "applicable_section": "待人工分類",
             "expected_effect": f"互動量: {post.get('engagement', 0)}",
             "source_url": url,

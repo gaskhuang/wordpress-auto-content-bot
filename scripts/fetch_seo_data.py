@@ -1,4 +1,9 @@
-from dataforseo_bridge import DataForSEOBridge
+import os
+import sys
+# 將專案根目錄加入 sys.path，讓 core/ 套件可被引入
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+
+from core.dataforseo_bridge import DataForSEOBridge
 import json
 
 def fetch_and_save_seo_data():

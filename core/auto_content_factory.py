@@ -2,6 +2,11 @@ import os
 import json
 import time
 from dotenv import load_dotenv
+
+# 確保能從任何位置執行
+import sys
+sys.path.insert(0, os.path.dirname(__file__))
+
 from wp_bridge import WordPressBridge
 from dataforseo_bridge import DataForSEOBridge
 # 假設我們有一個 generate_image 的封裝，或是直接在邏輯中處理
@@ -11,7 +16,8 @@ class AutoContentFactory:
         load_dotenv()
         self.wp = WordPressBridge(os.getenv("WP_SITE"), os.getenv("WP_USER"), os.getenv("WP_PWD"))
         self.seo = DataForSEOBridge()
-        self.topics_file = "/Users/gask/Documents/antigravity/wordpress auto edit/topics_50.md"
+        # 動態路徑：從 core/ 往上一層找 data/topics_50.md
+        self.topics_file = os.path.join(os.path.dirname(__file__), "..", "data", "topics_50.md")
         
     def load_topics(self):
         with open(self.topics_file, "r", encoding="utf-8") as f:
@@ -110,9 +116,11 @@ class AutoContentFactory:
 
     def run_batch(self, count=1):
         all_topics = self.load_topics()
+        articles = []
         for i in range(min(count, len(all_topics))):
-            # 這裡我們只回傳第一個專題的資訊給 Agent，讓 Agent 來執行具體的圖片產生與發布
-            return self.produce_article(all_topics[i])
+            article = self.produce_article(all_topics[i])
+            articles.append(article)
+        return articles
 
 if __name__ == "__main__":
     factory = AutoContentFactory()

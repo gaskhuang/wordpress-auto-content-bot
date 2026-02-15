@@ -1,6 +1,6 @@
 # SEO/AEO/GEO 動態寫作規範 (Auto-Evolving)
 # 此檔案由 framework_updater.py 自動維護，請勿手動編輯「進階技巧庫」區塊
-> 最後更新：2026-02-15 | 版本：v1.0 | 累計學習來源：0 篇
+> 最後更新：2026-02-16 | 版本：v1.1 | 累計學習來源：28 篇
 
 ---
 
@@ -66,7 +66,49 @@
 <!-- ===== AUTO-APPEND ZONE: DO NOT EDIT BELOW THIS LINE ===== -->
 <!-- framework_updater.py 會在此標記之後自動插入新技巧 -->
 
-*(尚無已學習的技巧。執行 `python trend_scraper.py` 開始第一次採集。)*
+### 📡 第 1 次趨勢更新 (2026-02-16 | 來源：28 篇 Web Search)
+
+#### 🏗️ 結構化數據
+
+**Tip #001: JSON-LD FAQPage Schema 強化**
+> 每篇文章必須包含 FAQPage JSON-LD Schema，明確標記 Q&A 配對，讓 AI 系統能直接提取問答內容作為生成式回覆。
+> — 來源: digidop.com, thedigitalbloom.com | 信心度: ⭐⭐⭐
+
+**Tip #002: Article Schema + dateModified 時效訊號**
+> 使用 Article Schema 並確保 `dateModified` 欄位總是更新為最新編輯日期。AI 引擎偏好時效性高的內容來源。
+> — 來源: amivisibleonai.com, sarmlife.com | 信心度: ⭐⭐⭐
+
+#### 🛡️ E-E-A-T 強化
+
+**Tip #003: Author Schema + 專家身分標記**
+> 為每篇文章加入 Author Schema，連結至已驗證的專家身分。對 YMYL 類主題尤其關鍵，AI 更傾向引用有明確作者身分的內容。
+> — 來源: amivisibleonai.com, briskon.com | 信心度: ⭐⭐⭐
+
+#### 🤖 AI 可讀性
+
+**Tip #004: Answer-First 段落設計**
+> 每個 H2/H3 區段的第一句話必須是可被 AI 直接提取的「摘要答案」，採用因果句型或定義句型。AI 引擎偏好在段落開頭就找到核心答案。
+> — 來源: primotech.com, aisinnovate.com | 信心度: ⭐⭐⭐
+
+**Tip #005: 模組化段落 + 語義自足**
+> 每個段落必須語義自足（Self-contained），不依賴上下文就能被 AI 獨立引用。避免使用「如前所述」「上面提到的」等回溯語句。
+> — 來源: firebrand.marketing, collectiveaudience.co | 信心度: ⭐⭐⭐
+
+#### 🔗 引用優化
+
+**Tip #006: Prompt Audit — 檢測 AI 是否引用你**
+> 定期在 ChatGPT / Perplexity / Gemini 中搜尋你的品牌關鍵字，觀察 AI 是否引用你的內容。找出「引用缺口」(Citation Gap) 並優先補強這些主題。
+> — 來源: primotech.com, geostar.ai | 信心度: ⭐⭐⭐
+
+**Tip #007: 跨平台品牌提及 (Off-Page GEO)**
+> AI 系統不僅從你的網站學習，也從 Reddit、Quora、Medium 等平台收集品牌資訊。在這些平台建立一致的品牌提及和高權重反向鏈接。
+> — 來源: nextnw.org, walkersands.com | 信心度: ⭐⭐⭐
+
+#### 📊 內容策略
+
+**Tip #008: 原創數據 = AI 引用磁鐵**
+> 發布獨家數據、研究報告、基準測試結果。AI 系統更傾向引用提供獨特見解和原創數據的來源，而非重複市面上已有的資訊。
+> — 來源: lauramohiuddin.com, primotech.com | 信心度: ⭐⭐⭐
 
 <!-- ===== END AUTO-APPEND ZONE ===== -->
 
@@ -76,4 +118,5 @@
 
 | 日期 | 版本 | 新增技巧數 | 來源 |
 |------|------|-----------|------|
+| 2026-02-16 | v1.1 | 8 | Web Search 自動採集 (28 篇 SEO/GEO 來源) |
 | 2026-02-15 | v1.0 | 0 | 初始版本 (從 aeo_guidelines_2026.md 遷移) |

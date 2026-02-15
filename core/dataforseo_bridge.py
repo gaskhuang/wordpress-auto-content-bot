@@ -1,7 +1,11 @@
 import requests
 import base64
 import os
+import logging
 from dotenv import load_dotenv
+from retry_utils import retry_with_backoff
+
+logger = logging.getLogger(__name__)
 
 class DataForSEOBridge:
     def __init__(self, login=None, password=None):
@@ -22,13 +26,23 @@ class DataForSEOBridge:
         }
 
     def post(self, endpoint, data):
-        """通用 POST 請求"""
+        """通用 POST 請求（含 retry + exponential backoff）"""
         url = f"{self.base_url}/{endpoint.lstrip('/')}"
-        try:
-            response = requests.post(url, headers=self.headers, json=data)
+
+        def _do_request():
+            response = requests.post(url, headers=self.headers, json=data, timeout=15)
+            response.raise_for_status()
             return response.json()
-        except Exception as e:
-            print(f"❌ DataForSEO API 請求錯誤: {e}")
+
+        try:
+            return retry_with_backoff(
+                _do_request,
+                max_retries=3,
+                base_delay=1.0,
+                retryable_exceptions=(requests.exceptions.RequestException,),
+            )
+        except requests.exceptions.RequestException as e:
+            logger.error(f"❌ DataForSEO API 請求錯誤（已重試 3 次）: {e}")
             return None
 
     def get_keywords_data(self, keywords, location_code=2158, language_code="zh_TW"):

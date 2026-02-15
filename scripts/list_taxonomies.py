@@ -1,5 +1,9 @@
-from wp_bridge import WordPressBridge
 import os
+import sys
+# 將專案根目錄加入 sys.path，讓 core/ 套件可被引入
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+
+from core.wp_bridge import WordPressBridge
 from dotenv import load_dotenv
 import json
 

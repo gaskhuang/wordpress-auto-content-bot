@@ -5,6 +5,7 @@ import logging
 from requests.auth import HTTPBasicAuth
 from dotenv import load_dotenv
 from datetime import datetime
+from retry_utils import retry_with_backoff
 
 # 設定日誌
 logger = logging.getLogger(__name__)
@@ -87,25 +88,31 @@ class WordPressBridge:
                 # 預設為通用二進位流，WordPress 會嘗試自動判斷
                 media_headers['Content-Type'] = 'application/octet-stream'
 
-            try:
+            file_data = f.read()
+
+            def _do_upload():
                 logger.info(f"📤 正在上傳媒體: {file_name}...")
                 response = self.session.post(
                     self.media_url,
-                    data=f,
+                    data=file_data,
                     auth=self.auth,
                     headers=media_headers,
                     timeout=30
                 )
-                if response.status_code == 201:
-                    data = response.json()
-                    logger.info(f"✅ 媒體上傳成功! ID: {data.get('id')}")
-                    return data
-                else:
-                    logger.error(f"❌ 媒體上傳失敗! 狀態碼: {response.status_code}")
-                    logger.debug(f"回應內容: {response.text}")
-                    return None
-            except Exception as e:
-                logger.error(f"‼️ 上傳過程出錯: {e}")
+                response.raise_for_status()
+                return response.json()
+
+            try:
+                result = retry_with_backoff(
+                    _do_upload,
+                    max_retries=3,
+                    base_delay=2.0,
+                    retryable_exceptions=(requests.exceptions.RequestException,),
+                )
+                logger.info(f"✅ 媒體上傳成功! ID: {result.get('id')}")
+                return result
+            except requests.exceptions.RequestException as e:
+                logger.error(f"❌ 媒體上傳失敗（已重試 3 次）: {e}")
                 return None
 
     def post_article(self, title, content, status='pending', categories=None, tags=None, featured_media=None):
@@ -142,29 +149,34 @@ class WordPressBridge:
         post_headers = self.headers.copy()
         post_headers["Origin"] = self.site_url
         post_headers["Referer"] = self.site_url + "/"
-        
-        try:
+
+        def _do_post():
             response = self.session.post(
-                self.posts_url, 
-                json=data, 
-                auth=self.auth, 
+                self.posts_url,
+                json=data,
+                auth=self.auth,
                 headers=post_headers,
                 timeout=15
             )
-            
-            if response.status_code == 201:
-                logger.info(f"✅ 成功發布文章: {title}")
-                return response.json()
-            else:
-                logger.error(f"❌ 發布失敗! 狀態碼: {response.status_code}")
-                if response.status_code == 403:
-                    logger.warning("💡 提示: 伺服器拒絕了發文請求。這通常是防火牆(WAF)阻擋了 API 寫入動作。")
-                    if "<title>" in response.text:
-                        error_title = response.text.split('<title>')[1].split('</title>')[0]
-                        logger.warning(f"伺服器回應標題: {error_title}")
-                return None
-        except Exception as e:
-            logger.error(f"‼️ 請求過程發生錯誤: {e}")
+            if response.status_code == 403:
+                logger.warning("💡 提示: 伺服器拒絕了發文請求。這通常是防火牆(WAF)阻擋了 API 寫入動作。")
+                if "<title>" in response.text:
+                    error_title = response.text.split('<title>')[1].split('</title>')[0]
+                    logger.warning(f"伺服器回應標題: {error_title}")
+            response.raise_for_status()
+            return response.json()
+
+        try:
+            result = retry_with_backoff(
+                _do_post,
+                max_retries=3,
+                base_delay=2.0,
+                retryable_exceptions=(requests.exceptions.RequestException,),
+            )
+            logger.info(f"✅ 成功發布文章: {title}")
+            return result
+        except requests.exceptions.RequestException as e:
+            logger.error(f"❌ 發布失敗（已重試 3 次）: {e}")
             return None
 
     def update_article(self, post_id, title=None, content=None, status=None, categories=None, tags=None, featured_media=None):
@@ -200,27 +212,32 @@ class WordPressBridge:
         post_headers["Origin"] = self.site_url
         post_headers["Referer"] = self.site_url + "/"
 
-        try:
+        def _do_update():
             logger.info(f"🔄 正在更新文章 ID: {post_id}...")
             response = self.session.post(
-                update_url, 
-                json=data, 
-                auth=self.auth, 
+                update_url,
+                json=data,
+                auth=self.auth,
                 headers=post_headers,
                 timeout=15
             )
-            
-            if response.status_code == 200:
-                logger.info(f"✅ 成功更新文章: {post_id}")
-                return response.json()
-            else:
-                logger.error(f"❌ 更新失敗! 狀態碼: {response.status_code}")
-                if response.status_code == 403 and "<title>" in response.text:
-                   error_title = response.text.split('<title>')[1].split('</title>')[0]
-                   logger.warning(f"伺服器回應標題: {error_title}")
-                return None
-        except Exception as e:
-            logger.error(f"‼️ 更新請求過程發生錯誤: {e}")
+            if response.status_code == 403 and "<title>" in response.text:
+                error_title = response.text.split('<title>')[1].split('</title>')[0]
+                logger.warning(f"伺服器回應標題: {error_title}")
+            response.raise_for_status()
+            return response.json()
+
+        try:
+            result = retry_with_backoff(
+                _do_update,
+                max_retries=3,
+                base_delay=2.0,
+                retryable_exceptions=(requests.exceptions.RequestException,),
+            )
+            logger.info(f"✅ 成功更新文章: {post_id}")
+            return result
+        except requests.exceptions.RequestException as e:
+            logger.error(f"❌ 更新失敗（已重試 3 次）: {e}")
             return None
 
 if __name__ == "__main__":
