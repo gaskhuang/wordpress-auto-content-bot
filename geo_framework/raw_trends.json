@@ -1,89 +1,727 @@
 {
-    "scrape_date": "2026-02-16",
-    "scrape_method": "search_web (Zero-API Mode)",
-    "total_sources": 28,
-    "sources_summary": [
-        "Search Engine Journal - GEO/AEO Benchmarks",
-        "Primotech - GEO Best Practices 2025",
-        "digidop.com - Structured Data for GEO",
-        "collectiveaudience.co - AI Citation Optimization",
-        "nextnw.org - GEO Strategy Guide",
-        "firebrand.marketing - LLM-Ready Content",
-        "llmrefs.com - AI Visibility Framework",
-        "geostar.ai - Source of Truth Strategy"
-    ],
-    "extracted_tips": [
-        {
-            "id": "tip-2026-001",
-            "category": "結構化數據",
-            "title": "JSON-LD FAQPage Schema 強化",
-            "description": "每篇文章必須包含 FAQPage JSON-LD Schema，明確標記 Q&A 配對，讓 AI 系統能直接提取問答內容作為生成式回覆。",
-            "source": "digidop.com, thedigitalbloom.com",
-            "confidence": "high",
-            "actionable": true
-        },
-        {
-            "id": "tip-2026-002",
-            "category": "結構化數據",
-            "title": "Article Schema + dateModified 時效訊號",
-            "description": "使用 Article Schema 並確保 dateModified 欄位總是更新為最新編輯日期。AI 引擎偏好時效性高的內容來源。",
-            "source": "amivisibleonai.com, sarmlife.com",
-            "confidence": "high",
-            "actionable": true
-        },
-        {
-            "id": "tip-2026-003",
-            "category": "E-E-A-T",
-            "title": "Author Schema + 專家身分標記",
-            "description": "為每篇文章加入 Author Schema，連結至已驗證的專家身分。對 YMYL 類主題尤其關鍵，AI 更傾向引用有明確作者身分的內容。",
-            "source": "amivisibleonai.com, briskon.com",
-            "confidence": "high",
-            "actionable": true
-        },
-        {
-            "id": "tip-2026-004",
-            "category": "AI 可讀性",
-            "title": "Answer-First 段落設計",
-            "description": "每個 H2/H3 區段的第一句話必須是可被 AI 直接提取的「摘要答案」，採用因果句型或定義句型。AI 引擎偏好在段落開頭就找到核心答案。",
-            "source": "primotech.com, aisinnovate.com",
-            "confidence": "high",
-            "actionable": true
-        },
-        {
-            "id": "tip-2026-005",
-            "category": "AI 可讀性",
-            "title": "模組化段落 + 語義自足",
-            "description": "每個段落必須語義自足（Self-contained），不依賴上下文就能被 AI 獨立引用。避免使用「如前所述」「上面提到的」等回溯語句。",
-            "source": "firebrand.marketing, collectiveaudience.co",
-            "confidence": "high",
-            "actionable": true
-        },
-        {
-            "id": "tip-2026-006",
-            "category": "引用優化",
-            "title": "Prompt Audit — 檢測 AI 是否引用你",
-            "description": "定期在 ChatGPT/Perplexity/Gemini 中搜尋你的品牌關鍵字，觀察 AI 是否引用你的內容。找出「引用缺口」(Citation Gap) 並優先補強這些主題。",
-            "source": "primotech.com, geostar.ai",
-            "confidence": "high",
-            "actionable": true
-        },
-        {
-            "id": "tip-2026-007",
-            "category": "引用優化",
-            "title": "跨平台品牌提及 (Off-Page GEO)",
-            "description": "AI 系統不僅從你的網站學習，也從 Reddit、Quora、Medium 等平台收集品牌資訊。在這些平台建立一致的品牌提及和高權重反向鏈接。",
-            "source": "nextnw.org, walkersands.com, medium.com",
-            "confidence": "high",
-            "actionable": true
-        },
-        {
-            "id": "tip-2026-008",
-            "category": "內容策略",
-            "title": "原創數據 = AI 引用磁鐵",
-            "description": "發布獨家數據、研究報告、基準測試結果。AI 系統更傾向引用提供獨特見解和原創數據的來源，而非重複市面上已有的資訊。",
-            "source": "lauramohiuddin.com, primotech.com",
-            "confidence": "high",
-            "actionable": true
-        }
-    ]
+  "scrape_date": "2026-02-16",
+  "scrape_method": "Zero-API",
+  "total_posts": 72,
+  "posts": [
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "shishir-kadam-28",
+      "date": "2026-02-09",
+      "title": "All my boss wants is to rank our Website on AI",
+      "text": "I have been working in SEO for some time, but recently I have noticed a shift in how people discover brands. Instead of searching only on Google, many users are now asking AI tools like ChatGPT, Perplexity, and Gemini questions such as “best service provider near me” or “top companies for a specific solution.” What’s interesting is that these tools directly recommend businesses, sometimes even before users visit a search engine. This makes me curious about how websites or brands actually “rank” or get mentioned in AI-generated answers.\n\n\\+ my boss wants to rank on 1 ",
+      "engagement": 168,
+      "url": "https://reddit.com/r/SEO/comments/1r01o0q/all_my_boss_wants_is_to_rank_our_website_on_ai/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "WebLinkr",
+      "date": "2026-02-04",
+      "title": "Anthropic are hiring an SEO Lead - I guess GEO just isn't working out",
+      "text": "h/t to u/jakehundley\n\n  \n**About the role**\n\nWe're looking for an SEO Lead to join Anthropic's growing marketing team. You'll own organic search strategy and technical SEO infrastructure across Anthropic's web properties — including [claude.ai](http://claude.ai/), [docs.anthropic.com](http://docs.anthropic.com/), and [anthropic.com](http://anthropic.com/) — ensuring our products and developer resources are discoverable, performant, and well-positioned in an evolving search landscape.\n\nThis is a high-impact, hands-on individual contributor role at the intersection of marketing, engineering, and data. You'll independently define and execute the technical SEO roadmap, drive site experimentation and conversion optimization, and make strategic recommendations that shape how we invest in organic growth. You'll partner closely with engineering, content, and analytics teams to scale organic discovery — operating with a high degree of autonomy while keeping cross-functional stakeholders aligned",
+      "engagement": 164,
+      "url": "https://reddit.com/r/SEO/comments/1qvs9q8/anthropic_are_hiring_an_seo_lead_i_guess_geo_just/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "Design_Inspire_1354",
+      "date": "2026-01-30",
+      "title": "My competitor gets 5× our traffic while failing every SEO metric — what am I missing?",
+      "text": "\\- This is a question for high level SEO’s.\n\n\\- Help me figure out how my competitor gets more than 5 times the amount of traffic as us, but seems to be failing on every SEO metric. The niche is furniture.\n\n\\- Their DR is 25. Ours is 34.\n\n\\- Their on page SEO is a mess (missing descriptions on every page, multiple H1s, no strategic keyword research and no bottom of the page contet). Meanwhile we’ve optimized at least 100 pages with strategic keywords (low competition, high TP, high volume).\n\n\\- Their AI citations are almost non-existent. Ours is booming.\n\n\\- They have no blog. We have a solid, high-quality blog that generates legitimate traffic on most of its pages.\n\n\\- Their UR is 4.8 while our UR is 4.9.\n\n\\- They have 9.2K backlinks, while we have only 845. However, about 90% of their backlinks have a DR of less than 10. For us, 45% of our backlinks have a DR of 40+, leaving us with MORE high-quality backlinks than them. (Is high-volume spammy links the answer? I don't think so.)\n\n\\-",
+      "engagement": 142,
+      "url": "https://reddit.com/r/SEO/comments/1qr512b/my_competitor_gets_5_our_traffic_while_failing/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "Ok_Veterinarian446",
+      "date": "2026-01-25",
+      "title": "Google's New GIST Algorithm Explained -  Practical Impacts for SEO &amp; Business",
+      "text": "On Friday (Jan 23), Google Research published details on GIST (Greedy Independent Set Thresholding), a new protocol presented at NeurIPS 2025.\n\nWhile the paper is heavy on math, the implications for SEO and Content Strategy are straightforward and critical to understand. This isn't just a ranking update, it is a fundamental shift in how Google selects data for AI models to save compute costs.\n\nMe and my team broke down the core points you should take in consideration.\n\nPart 1: What is GIST? (The \"Selection\" Problem)\n\nTo understand GIST, you have to understand the problem Google is solving: redundancy is expensive.\n\nWhen generating an AI answer (AEO), Google cannot feed 10,000 search results into the model context window - it costs too much. It needs to pick a small subset of data (e.g., 5 sources) that covers the most information possible.\n\nThe Old Way (Ranking): Google picks the top 5 highest authority pages. If all 5 say the exact same thing, the AI gets 5 duplicates. This is a waste",
+      "engagement": 109,
+      "url": "https://reddit.com/r/TechSEO/comments/1qmwukq/googles_new_gist_algorithm_explained_practical/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "Livid-Spray8170",
+      "date": "2026-02-02",
+      "title": "Big traffic drop after Dec 11, 2025 Google core update – need help diagnosing what went wrong",
+      "text": "Hey everyone, I’m looking for some honest feedback and direction from people who’ve dealt with core update hits before.\n\nI work as an in-house SEO for a B2B tech/software development company website. After the Dec 11, 2025 Google core update, things went downhill fast:\n\n* Blog traffic is down around 50%\n* Many landing pages that were top 3 / page 1 are now around positions 40–60+\n* Some blog URLs lost featured snippets and top 5 rankings\n* **Site overview:** Type: B2B service website (software + app development company)\n* **Content mix:** 1000+ blog posts (mostly long-form, 1,500–3,000 words)\n* 30–40 service/landing pages targeting commercial keywords\n* **Main markets:** US, UK, Middle East, India\n* **CMS:** WordPress\n* **Monetization:** Lead generation (contact forms, Calendly, consultation CTAs)\n\nWhat I’ve checked so far\n\n* **GSC:** No manual actions, no security issues\n* **Indexing:** Pages are still indexed, no mass deindexing\n* **Core Web Vitals**: Mostly “Good” on mobile and desk",
+      "engagement": 88,
+      "url": "https://reddit.com/r/SEO/comments/1qtm52u/big_traffic_drop_after_dec_11_2025_google_core/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "Ok_Veterinarian446",
+      "date": "2026-01-24",
+      "title": "Unpopular Opinion: We are working for free. Organic search will be 100% pay-to-play by 2028.",
+      "text": "I’ve been heavily focused on AEO during last this year - cleaning up knowledge graphs, nesting schema, and making every data point machine-readable.\n\nBut lately, I can’t shake this specific thought, and I want to see if anyone else feels this way:\n\nWe are literally building their product for them - think about it. The biggest bottleneck for AI right now is hallucination and dirty data. So, what does the entire SEO industry do? We scramble to structure our content into perfect, verified JSON-LD so the models can ingest it cost efficiently, without errors. We are effectively scrubbing the web for them, for free.\n\n We are doing the heavy lifting of organizing the world's information. Once the models have fully ingested our perfect data, what stops them from locking the output behind a paywall?\n\n* Today: \"Please structure your data so we can cite you.\"\n* Tomorrow: \"Thanks for the clean data. Now, if you want us to actually show it to the user, the bid starts at $5.\"\n\nI feel like we are opt",
+      "engagement": 73,
+      "url": "https://reddit.com/r/TechSEO/comments/1qlrigx/unpopular_opinion_we_are_working_for_free_organic/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "sameerkumar8978",
+      "date": "2026-01-29",
+      "title": "Is it realistically possible to get guest posts, PR links, or HARO links without spending any money?",
+      "text": "Is it still realistically possible in 2026 to earn guest posts, PR links, or HARO/Connectively links without spending any money? I’m not talking about paid placements or gray-hat tactics, but purely organic efforts like strong content, genuine outreach, and journalist pitching. Have you personally managed to get links for free, or has pay-to-play become the default now? Curious to hear what’s actually working, what’s stopped working, and whether “zero-budget” link building is still viable in real-world SEO.",
+      "engagement": 69,
+      "url": "https://reddit.com/r/SEO/comments/1qpyyvv/is_it_realistically_possible_to_get_guest_posts/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "YOLOking007",
+      "date": "2026-02-13",
+      "title": "SEO interview question i must know in 2026?",
+      "text": "I have 5+ years experience in SEO, trying to find a good job, give me some SEO interview question i must know in 2026.",
+      "engagement": 67,
+      "url": "https://reddit.com/r/SEO/comments/1r3x4ko/seo_interview_question_i_must_know_in_2026/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "omarwilson1",
+      "date": "2026-01-30",
+      "title": "Are Core Web Vitals still important for SEO in 2026?",
+      "text": "",
+      "engagement": 63,
+      "url": "https://reddit.com/r/TechSEO/comments/1qr9bs6/are_core_web_vitals_still_important_for_seo_in/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "WebLinkr",
+      "date": "2026-02-10",
+      "title": "Introducing AI Performance in Bing Webmaster Tools Public Preview",
+      "text": "H/t tp u/lilyraynyc for sharing this on [X](https://x.com/lilyraynyc/status/2021301631912902912)\n\n# How To See it\n\nClick on the AI Dashboard Report on the LHS\n\n  \n**Extending Search Insights to AI Answers**\n\nBing Webmaster Tools has long helped website owners understand indexing, crawl health, and search performance. AI Performance extends those insights to AI-generated answers by showing where and how content from your site is referenced as a source across AI experiences.\n\nAs AI becomes a more common way people discover information, visibility is not only about blue links. It is also about whether your content is cited and referenced when AI systems generate answers. This release is an early step toward Generative Engine Optimization (GEO) tooling in Bing Webmaster Tools, helping publishers understand how their content participates in AI-driven experiences.\n\n# What the dashboard measures\n\n**Total Citations**\n\nShows the total number of citations that are displayed as sources in AI-gene",
+      "engagement": 59,
+      "url": "https://reddit.com/r/SEO/comments/1r1c6ru/introducing_ai_performance_in_bing_webmaster/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "Cupcakii",
+      "date": "2026-02-10",
+      "title": "GEO for local business? Is it possible? Are there any strategies I need to research?",
+      "text": "I run an agency for local businesses and we're getting more questions from our clients about showing up in Al-generated answers for location specific questions. Like when someone asks Chatgpt \"best dentists in Austin\", can we influence our clients to show in those searches?\n\nBecause I know with regular SEO we'd do Google Business Profile, local citations, location pages, reviews, but I genuinely have no idea if any of that matters for Al or if LLMs pull from totally different signals.\n\nWhat are you guys doing for local GEO? Or are we just telling clients it's a blackbox since we'd have no way of knowing if its working?? I know basically nothing about this lol",
+      "engagement": 59,
+      "url": "https://reddit.com/r/digital_marketing/comments/1r0z9p2/geo_for_local_business_is_it_possible_are_there/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "Ok_Veterinarian446",
+      "date": "2026-02-02",
+      "title": "Discussion: What is the actual risk/reward impact of serving raw Markdown to LLM bots?",
+      "text": "I am looking for second opinions on a specific architectural pattern I am planning to deploy next week.\n\nThe setup is simple: I want to use Next.js middleware to detect User-Agents like `GPTBot` or `ClaudeBot`. When these agents hit a blog post, I plan to intercept the request and rewrite it to serve a raw Markdown file instead of the full React/HTML payload.\n\nThe logic is that LLMs burn massive amounts of tokens parsing HTML noise. My early benchmarks suggest a 95% reduction in token usage per page when serving Markdown, which in theory should skyrocket the \"ingestion capacity\" of the site for RAG bots.\n\nHowever, before I push this to production, I want to hear different perspectives on the potential negative impacts, specifically:\n\n1. **The Cloaking Line:** Google's docs allow dynamic serving if the content is equivalent. Since the text in the markdown will be identical to the HTML text, I assume this is safe. But does anyone here consider stripping the DOM structure a step too far i",
+      "engagement": 58,
+      "url": "https://reddit.com/r/TechSEO/comments/1qtsnoe/discussion_what_is_the_actual_riskreward_impact/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "bsrulz",
+      "date": "2026-01-22",
+      "title": "Can we stop fighting the GEO/AEO acronym and move on?",
+      "text": "I keep seeing people struggle to accept the GEO/AEO/AI SEO acronym.  \n  \nA lot of folks are still saying: GEO/AEO is just a made-up term… it’s still SEO on the backend.  \n  \nYes - the foundation is still SEO. The activities required to perform well in GEO are still fundamentally rooted in SEO.  \n  \nBut, having a dedicated term like GEO / AEO actually makes a lot of sense, because it immediately directs the conversation towards:  \n  \n → What are we doing to optimize for LLMs?  \n → How is our brand presence inside ChatGPT / AI answers?  \n → Are we being cited, recommended, referenced?  \n  \nIt simply makes the conversation easier and more structured.  \n  \nOf course, you can (and should) educate clients that the core fundamentals remain the same but a specific name helps frame a new channel clearly.   \n  \nP.S. We’ve already accepted terms like ASO, Amazon SEO, YouTube SEO, so instead of calling it “ChatGPT SEO”, people are using GEO / AEO and that’s fine.  \n  \nP.S.S. I’m certainly against ",
+      "engagement": 55,
+      "url": "https://reddit.com/r/SEO/comments/1qjr4xd/can_we_stop_fighting_the_geoaeo_acronym_and_move/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "VanshikaWrites",
+      "date": "2026-02-12",
+      "title": "Does anyone else feel like SEO is becoming more about “content positioning” than keywords?",
+      "text": "I’ve been noticing that pages don’t rank just because they have the “right keywords” anymore. Sometimes pages with weaker keyword targeting still rank because the content feels clearer, more helpful, or better structured than competitors.\n\nIt feels like Google cares more about how content answers intent than how perfectly it’s optimized.\n\nFor example, I’ve seen pages rank without exact-match keywords just because the explanation was simpler and easier to follow.\n\nCurious if others are seeing this shift too, less keyword-stuffing mindset and more “how well does this page solve the problem?”\n\nIs SEO slowly becoming more about content clarity than keyword strategy?",
+      "engagement": 52,
+      "url": "https://reddit.com/r/SEO/comments/1r2nt04/does_anyone_else_feel_like_seo_is_becoming_more/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "theyashbhardwaj",
+      "date": "2026-02-12",
+      "title": "I just automated my pSEO with OpenClaw &amp; seeing some good results",
+      "text": "I have no experience with SEO, but I'm reasonably sound enough to understand basic concepts like On-Page SEO. I have no link-building or smart hacks or any secret sauce experience. \n\nI have a geo related website which has a lot of \\[from\\] and \\[to\\] content so earlier I only had key info in some UI there. But recently I automatically generated about 37,000+ pages. Here's how I did it the secure way:\n\n1. I used NextJS + Claude Code, the entire website is just code, no cms or anything.  \n2. The articles are uniquely generated so Google doesn't feel I'm spamming  \n3. My slug urls are optimized to be short and readable.  \n4. I have snippets + schema setup.   \n5. Zero Orphan Pages, I don't have a single page on the website that doesn't link to any other. Since it's GEO, I made an basic algorithm that decides \"other cities\" you'd be interested in. \n\nBy doing just this + submitted my page to search console I was able to rank #1 for several keywords. My competitors are really bad, I'm atleast",
+      "engagement": 49,
+      "url": "https://reddit.com/r/SEO/comments/1r2l3mb/i_just_automated_my_pseo_with_openclaw_seeing/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "distant_gradient",
+      "date": "2026-02-14",
+      "title": "Any Tests / Experiments about Ranking of AI Content in 2026?",
+      "text": "Hello folks\n\nTo continue the discussion u/ DanyrWithCheese started here from a couple of days back on the ranking of AI content --\n\nThere broadly seems to be two categories of opinions:\n\n1. AI content on your website will completely wreck you\n2. People who take the \"Google Search's guidance about AI-generated content\" at face value -- ie. \"Rewarding high-quality content, however it is produced\"\n\nI think reality is somewhere in between 1-2 (like most things SEO) but I'm not sure does it tend towards 1 or 2.\n\nHas anyone here ran any tests around the ranking of AI content?\n\nI'm looking for experiments along the lines of AI content vs Human content websites, keeping all else same.",
+      "engagement": 49,
+      "url": "https://reddit.com/r/SEO/comments/1r4t38c/any_tests_experiments_about_ranking_of_ai_content/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "Desperate_Arm_3051",
+      "date": "2026-02-14",
+      "title": "SEO Help with WP small business site",
+      "text": "Hi there. I'm a guitar teacher with a busy lesson practice. I'm not really struggling to find students right now but I want to make sure my business keeps ticking along. \n\nMy site used to rank on the first page for \"guitar lessons (my city),\" now I'm on the 5th page for that phrase?! \n\n  \nLots of people are still finding me through google maps results (I have a ton of 5-star reviews), but I'm worried about my big slip in rankings for that keyword.\n\nI don't know how recently this happened because I keep getting students so I just assumed everything was good.\n\nI had aimed to rank highly for that keyword phrase by making it the stated KW for all of my blog posts, and by trying to slip it into each page and post somehow. (I have an old blog that I haven't updated in a long time.)\n\nQuestions for anyone with the patience and kindness to answer them:\n\n1. Is making \"guitar lessons (my city)\" the keyword for blog posts that are generally guitar related A. spammy, B. maybe therefore penalized by",
+      "engagement": 49,
+      "url": "https://reddit.com/r/SEO/comments/1r4amfr/seo_help_with_wp_small_business_site/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "Holiday-Ninja-9442",
+      "date": "2026-01-31",
+      "title": "Unpopular Opinion: “Optimize for ChatGPT” Is Mostly Marketing",
+      "text": "To show up in AI answers, you need the same foundation SEO has always required.\n\nThe only difference: you can’t fake it anymore. Keyword stuffing, thin content, and checkbox SEO don’t survive in AI-driven discovery.\n\nMachines are simply better at detecting BS than Google ever was.\n\nSo when prospects call asking, “Can you do just GEO?” We usually say no.\n\nBecause we don’t sell GEO in isolation. We do full SEO and that’s exactly what powers AEO, GEO, AI visibility, and every other acronym being sold right now.\n\nWithout a strong SEO foundation, none of it sticks. With it, AI discovery becomes a byproduct, not a gamble.\n\nBecause GEO, AEO, AI visibility whatever we call it  still runs on real SEO fundamentals.",
+      "engagement": 44,
+      "url": "https://reddit.com/r/SEO/comments/1qscoeg/unpopular_opinion_optimize_for_chatgpt_is_mostly/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "svss_me",
+      "date": "2026-02-11",
+      "title": "I built an MCP server for Google Search Console so AI can actually reason about SEO data",
+      "text": "Hey folks,\n\nI built something for myself:\n\n**search-console-mcp** — an MCP server that exposes Google Search Console data in a way AI agents can actually use intelligently.\n\nInstead of:\n\n&gt;“Traffic dropped 18%.”\n\nYou can ask:\n\n&gt;“Why did traffic drop last week?”  \n“Is this query cannibalizing another page?”  \n“Which pages are one CTR tweak away from meaningful gains?”\n\nAnd the agent can:\n\n* Pull analytics data\n* Run time series comparisons\n* Attribute traffic drops\n* Detect low-CTR opportunities\n* Identify striking-distance queries\n* Inspect URLs + Core Web Vitals\n\nIt basically turns GSC into a queryable SEO brain.\n\nI also just launched proper docs  \n[https://searchconsolemcp.mintlify.app/](https://searchconsolemcp.mintlify.app/?utm_source=chatgpt.com)  \n[https://github.com/saurabhsharma2u/search-console-mcp](https://github.com/saurabhsharma2u/search-console-mcp)\n\nThis is open source. I built it mainly for indie projects and AI-powered SEO workflows, but I’m curious:\n\n* What SEO wo",
+      "engagement": 43,
+      "url": "https://reddit.com/r/TechSEO/comments/1r22aep/i_built_an_mcp_server_for_google_search_console/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "darmaan-seowizard",
+      "date": "2026-02-12",
+      "title": "Took me 5 years to learn this satisfying thing - some clients are NOT worth saving",
+      "text": "Early in my career, I had this mindset that if a client was unhappy or leaving, it was MY failure. So I'd bend over backwards, extra revisions, discounted rates, working weekends just to \"save\" them.\n\nOne client in particular wrecked me for months. E-commerce brand, decent budget, but impossible expectations. They wanted page 1 rankings in 4 weeks for keywords that had 50K+ monthly searches. When I explained that's not how SEO works, they'd go quiet... then come back a week later asking why they're not ranking yet.\n\nI kept trying to educate them. Kept sending reports. Kept justifying every move.\n\nEventually, they left anyway. Called my work \"too slow.\"\n\nHere's what hit me later: I spent SO much energy on someone who was never going to be happy, that I half-assed my communication with 3 other clients who actually trusted me. One of them even churned because I was \"hard to reach.\"\n\nLost a good client trying to save a bad one.\n\nNow I qualify harder upfront. If someone's first question is ",
+      "engagement": 33,
+      "url": "https://reddit.com/r/digital_marketing/comments/1r2yfoi/took_me_5_years_to_learn_this_satisfying_thing/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "Milan_Robofy",
+      "date": "2026-02-03",
+      "title": "Where to find automation + SEO expert to revamp a website.",
+      "text": "I created an AI Chatbot website around 30 months ago. It gets roughly 4000 monthly visitors. I created around 500 programmatic seo pages in it and that drives almost 60% of traffic for me. I actually abandoned the product but now from 2026 onwards, I have started working on it and rebuilt the product (post-login) from scratch. The product is shaping really nice and I am expected better conversion with this new product. I will be launching this product on 15 Feb.\n\nSo I am thinking of redeveloping the website also and I am looking for someone who is an expert with SEO + automations and we create a new website from scratch in next.js and keeping the url and majority of content as it is to scale this to 10000 monthly visitors. Anyone who can help on how to find such talent?\n\nNote: The 15 Feb deadline is only  for the product. The marketing website (where I want migration can be done in next 6-8 weeks timeline). Also I want only migration in 6-8 weeks. The journey from 4k to 10k is differen",
+      "engagement": 30,
+      "url": "https://reddit.com/r/SEO/comments/1quo5fp/where_to_find_automation_seo_expert_to_revamp_a/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "Galous97",
+      "date": "2026-01-26",
+      "title": "SEO Results After 7 Months: Are We Doing Well or Are We Delusional?",
+      "text": "Hey everyone, I would really appreciate an honest SEO reality check from the community.\n\nThis is a comparison between the website before we stepped in and after our first major changes, over the same time period (around 7 months). Ps: this niche is Cement Tiles in North Africa and Spain\n\n|Metric|*25/06/2025 – 26/01/2026*|*21/12/2024 – 24/06/2025*|\n|:-|:-|:-|\n|**Total clicks**  |1.97k|580|\n|**Total impressions**  |26k|3.04k|\n|**Average CTR** | 7.6%|19.1%|\n|**Average position**|9.3 |11.6|\n\nAs for us, we believe we made a radical and clear improvement compared to the previous state of the website during the same timeframe.\n\n**Why I am asking?**\n\nWe are a team of three. One of us (me) struggles a bit with **impostor syndrome**. A close friend told him our work is solid, but doubt started creeping in, so we wanted outside opinions.\n\n**Context**\n\nWhen we first audited the site, it was honestly a complete mess.\n\n**What we fixed / implemented:**\n\n* Fixed a lot of technical issues and code erro",
+      "engagement": 29,
+      "url": "https://reddit.com/r/SEO/comments/1qnvjwq/seo_results_after_7_months_are_we_doing_well_or/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "nikc9",
+      "date": "2026-01-24",
+      "title": "I built a cli website auditor that integrates into coding agents - seo, performance, security + more. squirrelscan is looking for feedback! 🐿️",
+      "text": "hi techseo - long time lurker, first time poster (appreciate everything i've learned here!). In the past few months using coding agents to build websites has really taken off. I noticed amongst clients a lot of scrappy websites and webapps being deployed riddled with issues.\n\nI found that the loop with the current seo / audit tools to be a bit too slow in this use case - scans would run weekly, or monthly - or often, never - and they wouldn't catch some of the issues that are coming up now with \"vibe coded\" or vibe-edited websites and apps.\n\nI've had my own crawler that i've been using for ~8+ years - I ported it to typescript + bun, optimised it with some rust modules and wrote a rules engine + some rules, and have been putting it to use for a few months now. It's called [squirrelscan](https://squirrelscan.com)\n\nIt integrates into coding agents, can be run manually on the cli and can be triggered in CI/CD. I've expended the [rule set](https://docs.squirrelscan.com/rules) to over 150 r",
+      "engagement": 28,
+      "url": "https://reddit.com/r/TechSEO/comments/1qm2jla/i_built_a_cli_website_auditor_that_integrates/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "Funfroglegs",
+      "date": "2026-02-08",
+      "title": "Recently contracted freelance needing help/explanation",
+      "text": "Hi all,\n\nI have recently been contracted by an SME to run their marketing. Part of the job involves SEO, which I have good experience with. I have, in a few weeks (hurray), managed to boost the company's ranking from second page to number 1/2 for 2 super important keywords they should have been targeting. I have others in mind and will implement soon.  \n  \nHOWEVER, I am failing at CTR. Now, I know that AI overviews are generating a lot of 0 click searches nowadays BUT, for these 2 keywords I am working on, there are no AI overviews (niche technical/engineering offering). The meta description is good and well aligned.\n\nWhat am I overlooking? Do I just need patience?",
+      "engagement": 27,
+      "url": "https://reddit.com/r/SEO/comments/1qyyglw/recently_contracted_freelance_needing/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "starchmayne",
+      "date": "2026-02-12",
+      "title": "I Think My Past Employers Have (unintentionally) Scammed People",
+      "text": "I’ve worked at two agencies in the past which were my first forays into SEO and have serious doubts about the effectiveness and legitimacy of services offered.\n\nBoth agencies offered SEO packages for around $750 - $1,500 per month that included 4 ai generated articles based on client’s desired keywords, a keyword ranking report pulled from ahrefs/SEMrush and a back linking report. Though one agency would report site traffic.\n\nFor clients who’d been in business for decades or were known in the community their keyword report always looked good but for smaller/newer clients they received little to no impact from the work. Moreover, the articles produced never generated much traffic (5 - 10 views on average if that). \n\nThanks to this sub I’ve learned that the SEO tools only provide an estimate using their algorithm and Google analytics (GSC &amp; G4) are the ultimate guides but are the tactics above common in the marketing industry?\n\nWhat are the signs, service offerings, and price points ",
+      "engagement": 27,
+      "url": "https://reddit.com/r/SEO/comments/1r2ywel/i_think_my_past_employers_have_unintentionally/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "omarwilson1",
+      "date": "2026-01-27",
+      "title": "What technical SEO changes are required to optimize websites for AI search engines and zero-click results in 2026?",
+      "text": "In 2026, optimizing for AI search engines and zero-click results requires a shift in technical SEO strategy. First, structured data is critical—using schema markup (FAQ, HowTo, Product, Organization) helps AI systems clearly understand and summarize your content. Second, focus on clean site architecture and internal linking so AI crawlers can easily identify topic relationships and authority.\n\nPage experience still matters: fast loading speed, strong Core Web Vitals, mobile-first design, and minimal JavaScript issues improve crawl efficiency. Websites should also optimize for entity-based SEO by strengthening brand signals, author profiles, and consistent NAP data.\n\nFinally, ensure indexation control with proper canonicals, noindex tags, and updated XML sitemaps. Even in zero-click searches, technically sound sites are more likely to be cited, summarized, and trusted by AI-driven search results.",
+      "engagement": 27,
+      "url": "https://reddit.com/r/TechSEO/comments/1qobwh1/what_technical_seo_changes_are_required_to/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "sumosushisamurai",
+      "date": "2026-01-29",
+      "title": "Has anyone had success with long form content using AI writers?",
+      "text": "Hello y'all.\n\nWe know AIO/AEO is a big deal but with our roles demanding more informative and conversion worthy content it's almost the norm to use AI to at least write some parts of content.\n\nAs the sole in-house SEO at my company, I need to write and optimize almost three 2,500 word+ articles a month. When you combine technical, on-page, and backlinks with the daily work you later come to find that this job is practically impossible.\n\nFor AI, I've been using CoPilot and Perplexity to get the job done. The results aren't pretty and I've been prompting more and more only to get a terrible result every time. It's ironic because, at that point, I would've been better off writing, structuring, and optimizing the article myself.\n\nFor AI writing agents, what's your flow or template you use? What have you implemented that turn as 50 word idea into a long-form guide designed for your audience and customer-base?\n\nTYIA!\n\n",
+      "engagement": 26,
+      "url": "https://reddit.com/r/SEO/comments/1qqi0xd/has_anyone_had_success_with_long_form_content/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "lightsiteai",
+      "date": "2026-02-11",
+      "title": "I was really surprised about this one - all LLM bots \"prefer\" Q&amp;A links over sitemap",
+      "text": "One more quick test we ran across our database (about 6M bot requests). I’m not sure what it means yet or whether it’s actionable, but the result surprised me.\n\n**Context:** our structured content endpoints include sitemap, FAQ, testimonials, product categories, and a business description. The rest are **Q&amp;A pages** where the slug is the question and the page contains an answer (example slug: what-is-the-best-crm-for-small-business).\n\n**Share of each bot’s extracted requests that went to Q&amp;A vs other links**\n\n* Meta AI: \\~87%\n* Claude: \\~81%\n* ChatGPT: \\~75%\n* Gemini: \\~63%\n\nOther content types (products, categories, testimonials, business/about) were consistently much smaller shares.\n\n**What this does and doesn’t mean**\n\n* I am not claiming that this impacts ranking in LLMs\n* Also not claiming that this causes citations\n* These are just facts from logs - when these bots fetch content beyond the sitemap, they hit Q&amp;A endpoints way more than other structured endpoints (in ou",
+      "engagement": 25,
+      "url": "https://reddit.com/r/TechSEO/comments/1r1tf1p/i_was_really_surprised_about_this_one_all_llm/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "wiseadvisor1994",
+      "date": "2026-01-29",
+      "title": "Is WordPress still a viable choice for SEO in 2026 or is the \"plugin bloat\" killing it?",
+      "text": "I’ve been thinking about the current state of WordPress for SEO.  I’m finding the long-term maintenance and scalability to be a massive headache lately.  \n\nI have to give credit where it’s due. For \"SEO 101\" tasks and bulk optimizations, WordPress is still incredibly efficient and hard to beat. But as we move deeper into 2026, I wonder if that’s enough.\n\nThe more plugins you add, the slower the site gets (Core Web Vitals nightmare). \n\nEvery update feels like playing Russian roulette with your site’s stability due to potential plugin conflicts. \n\nEven simple design adjustments or UI enhancements become a struggle because you’re constantly fighting against the theme’s limitations.\n\nAs SEO becomes more about performance and clean code, is the \"convenience\" of WordPress still worth the technical debt it creates? Or is it time to move toward more Vibe-coding, headless, or custom solutions? ",
+      "engagement": 24,
+      "url": "https://reddit.com/r/TechSEO/comments/1qq9ish/is_wordpress_still_a_viable_choice_for_seo_in/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "omarwilson1",
+      "date": "2026-01-24",
+      "title": "Are Core Web Vitals more of a UX signal than an SEO ranking factor in 2026?",
+      "text": "",
+      "engagement": 24,
+      "url": "https://reddit.com/r/TechSEO/comments/1qlq72m/are_core_web_vitals_more_of_a_ux_signal_than_an/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "RawrCunha",
+      "date": "2026-02-10",
+      "title": "Roast my idea, my clients don’t understand SEO reports, so i want to create tool to help them easier to understand.",
+      "text": "I’m working on a side project, an SEO reporting tool, and I want to share why I’m building it.\n\ni usually create report use looker (Data studio), and most of them are just a bunch of metrics and charts. Even after sending the report, clients still ask the same questions every month. \n\nSo i have stupid idea, i dont know this is happen to me or in your clients too (client need explanation about the report)\n\nInstead of dumping numbers, i want to create the report tells a short story to help clients understand what’s going on. Each report is focused on answering simple questions:\n\n* What happened?\n* Why did it happen?\n* How did it happen?\n\nSo they know my works, and if it make sense to them, hopefully it can be consideration for them to retain the seo project\n\nI’m still early in this journey and figuring things out.  \nIf you’re an SEO (freelancer or agency), I’d love honest feedback. \n\nPlease roast the idea if it doesn’t make sense.\n\nhttps://preview.redd.it/5atd21sqmlig1.png?width=2798&amp",
+      "engagement": 24,
+      "url": "https://reddit.com/r/TechSEO/comments/1r0rt3n/roast_my_idea_my_clients_dont_understand_seo/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "Acrobatic_Whereas866",
+      "date": "2026-02-10",
+      "title": "I have a doubt",
+      "text": "Has anyone else noticed big gaps between Google rankings and AI answers?\n\nI’ve been running the same commercial and research queries across search engines and LLM tools.\n\nWhat surprises me is how often well optimized, high authority websites don’t get mentioned at all in AI responses.  \nBut smaller brands sometimes show up repeatedly.\n\nTrying to understand what might be driving it.\n\nIs it entity relationships?  \nPR signals?  \nstructured data?  \nsomething else entirely?\n\nIf you work in SEO or growth, are clients starting to ask about this yet?\n\nWould love to hear what people are seeing.",
+      "engagement": 23,
+      "url": "https://reddit.com/r/TechSEO/comments/1r0xop9/i_have_a_doubt/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "Longjumping-Eye3659",
+      "date": "2026-01-26",
+      "title": "I’m a backend engineer building a tool to replace \"Manual Audits.\" Am I wasting my time?",
+      "text": "Hey guys,\n\nI worked in SEO for 2 years during college, but I’ve been a backend engineer (Python/Node) for the last few years.\n\nI recently looked at how my old agency friends are doing audits, and I was shocked. They are still manually checking checking indexability, manually searching keywords to see if an AI Overview pops up, and manually writing reports.\n\nIt seems inefficient.\n\nI’ve started building a side project—a \"Forensic SEO Engine.\"\n\nThe idea is to automate the deep-dive stuff:\n\nAI Overview Detection: Not just \"is it there,\" but \"who is cited and why?\" (Comparing entities/schema).\n\nPre-GSC Audits: Generating a full client-ready report before you even get access to their Search Console (for pitching).\n\nMy question for this sub:\n\nAs SEOs, is the \"reporting\" part actually a pain point for you? Or do you enjoy the manual analysis?\n\nIf I built a tool that generated a 90% ready white-label report in 3 minutes, would you trust it? Or is manual oversight non-negotiable?\n\nI’m aiming to ",
+      "engagement": 22,
+      "url": "https://reddit.com/r/TechSEO/comments/1qngww2/im_a_backend_engineer_building_a_tool_to_replace/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "Lumpy-Way-9208",
+      "date": "2026-02-15",
+      "title": "Domain migration disaster — 98% traffic drop. Recovery strategy check?",
+      "text": "Hey everyone, looking for honest feedback on our situation and recovery plan.\n\nWe're a B2B company with an international presence. In October 2025 we migrated from our legacy domain (15+ years old, \\~700k monthly impressions) to a brand new domain. The migration was done without a proper redirect strategy, and our old server went completely offline before we could fix things. Result: organic traffic dropped from 700k to \\~14k impressions. Organic went from 93% of total traffic to about 42%.\n\nWhat we've done so far:\n\n\\- Implemented \\~1,100 redirect rules using fuzzy matching (old and new URL structures are completely different)\n\n\\- Noindexed low-value pages (tag archives, etc.)\n\n\\- Optimized robots.txt to preserve crawl budget\n\n\\- Reworked title tags and meta descriptions for core product pages\n\n\\- Separate XML sitemaps per language (multilingual site, 6 languages)\n\n\\- Monitoring GSC daily for 404 resolution\n\n\\- Compensating with increased Google Ads spend in the meantime\n\nMy questions:",
+      "engagement": 20,
+      "url": "https://reddit.com/r/TechSEO/comments/1r58qpy/domain_migration_disaster_98_traffic_drop/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "Different-Respond-29",
+      "date": "2026-01-28",
+      "title": "SEO Scope of Work",
+      "text": "hi, i just wanna ask what to put in a SEO scope of work? this is my first time doing this and for our scope we are adding about AEO/AIO. Please help. thank you",
+      "engagement": 18,
+      "url": "https://reddit.com/r/SEO/comments/1qp70qh/seo_scope_of_work/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "Ok_Veterinarian446",
+      "date": "2026-01-27",
+      "title": "[Update] The GIST Compliance Checker (v0.9 Beta) is live. Visualize vector exclusion and Semantic Distance.",
+      "text": "Following the recent discussions here regarding Google's NeurIPS paper on **GIST** (Greedy Independent Set Thresholding) and the shift from Comprehensive Indexing to Diversity Sampling, I realized we had a massive theory problem but no practical utility to test it.\n\nWe talk about Vector Exclusion Zones and Semantic Overlap, but until now, we couldn't actually *see* them.\n\nSo, I built a diagnostic tool to fix that.\n\n# The Tool: GIST Compliance Checker (v0.9)\n\n**Link:**[https://websiteaiscore.com/gist-compliance-check](https://websiteaiscore.com/gist-compliance-check)\n\n**What it does:** This tool simulates the Selection Phase of a retrieval-augmented engine (like Google's AEO or strictly sampling-based LLMs).\n\n1. **The Baseline:** It fetches the current **Top 3 Ranking Results** for your target keyword (the \"Seed Nodes\").\n2. **The Vectorization:** It converts your content and the ranking content into mathematical embeddings.\n3. **The Metric:** It calculates the **Cosine Similarity** (Dis",
+      "engagement": 15,
+      "url": "https://reddit.com/r/TechSEO/comments/1qo9s0g/update_the_gist_compliance_checker_v09_beta_is/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "MTredd",
+      "date": "2026-01-22",
+      "title": "Built a Python library to read/write/diff Screaming Frog config files (for CLI mode &amp; automation)",
+      "text": "Hey all, long time lurker, first time poster.   \n\n\nI've been using headless SF for a while now, and its been a game changer for me and my team. I manage a fairly large amount of clients, and hosting crawls on server is awesome for monitoring, etc. \n\nThe only problem is that (until now ) i had to set up every config file on the UI and then upload it. Last week I spent like 20 minutes creating different config files for a bunch of custom extractions for our ecom clients. \n\nSo, I took a crack at reverse engineering the config files to see if I could build them programmatically.   \n  \nExtreme TLDR version:  hex dump showed that .seospiderconfig files are serialized JAVA objects. Tried a bunch of JAVA parsers, realized SF ships with a JRE and the JARs that can do that for me. I used SF’s own shipped Java runtime to load an existing config as a template, programmatically flip the settings I need, then re-save. Then I wrapped a python library around it. Now I can generate per-crawl configs (t",
+      "engagement": 15,
+      "url": "https://reddit.com/r/TechSEO/comments/1qk4gou/built_a_python_library_to_readwritediff_screaming/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "Existing-Cod5443",
+      "date": "2026-02-09",
+      "title": "Is SEO Actually Dying in 2026? Let’s Talk About Generative Engine Optimization",
+      "text": "After a decade in the industry, I've seen countless trends fade, but 2026 is a fundamental shift. It’s no longer about just being online—it’s about being **automated, immersive, and human-centric.**\n\nHere is my seasoned take on the high-stakes pivots you need to make:\n\n* **From SEO to GEO:** Traditional search is evolving into **Generative Engine Optimization (GEO)**. Your content shouldn't just rank; it must be the authoritative source cited by AI in synthesized answers.\n* **Privacy-First Data:** With the final death of third-party cookies, **first-party and zero-party data** are your only real assets. Build direct relationships through value-driven newsletters and transparent consent.\n* **Experience Over Viewing:** We are moving \"Beyond the Screen.\" Between **voice search** and **mixed reality (AR/VR)**, consumers are now *experiencing* brands rather than just scrolling past them.\n* **Hyper-Personalization:** Generic segments are dead. Use AI to deliver **dynamic content** tailored t",
+      "engagement": 15,
+      "url": "https://reddit.com/r/digital_marketing/comments/1qzvxgz/is_seo_actually_dying_in_2026_lets_talk_about/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "Nirmala_devi572",
+      "date": "2026-02-13",
+      "title": "How are you balancing SEO with AI search and answer engines?",
+      "text": "I’ve been doing normal SEO like keywords and content optimization. But now AI search tools are giving direct answers, so I’m confused about what to focus on.\n\nAre you changing your content style for AI? Or just continuing with regular SEO?\n\nWhat’s working for you right now?",
+      "engagement": 15,
+      "url": "https://reddit.com/r/digital_marketing/comments/1r3hr1s/how_are_you_balancing_seo_with_ai_search_and/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "bigseo",
+      "author": "MTredd",
+      "date": "2026-01-22",
+      "title": "Built a Python library to read/write/diff Screaming Frog config files (for CLI mode &amp; automation)",
+      "text": "Hey all, long time lurker, first time poster.\n\nI've been using headless SF for a while now, and its been a game changer for me and my team. I manage a fairly large amount of clients, and hosting crawls on server is awesome for monitoring, etc.\n\nThe only problem is that (until now ) i had to set up every config file on the UI and then upload it. Last week I spent like 20 minutes creating different config files for a bunch of custom extractions for our ecom clients.\n\nSo, I took a crack at reverse engineering the config files to see if I could build them programmatically.\n\nExtreme TLDR version: hex dump showed that .seospiderconfig files are serialized JAVA objects. Tried a bunch of JAVA parsers, realized SF ships with a JRE and the JARs that can do that for me. I used SF’s own shipped Java runtime to load an existing config as a template, programmatically flip the settings I need, then re-save. Then I wrapped a python library around it. Now I can generate per-crawl configs (threads, cano",
+      "engagement": 14,
+      "url": "https://reddit.com/r/bigseo/comments/1qk4ijd/built_a_python_library_to_readwritediff_screaming/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "bigseo",
+      "author": "facewook",
+      "date": "2026-01-16",
+      "title": "Will adding thousands of new pages hurt or dilute our existing SEO clout? (detail provided)",
+      "text": "**Background information on the site today:** \n\nMy partner and I run an informational site offering resources and support for people to learn more about their doctors. It’s not clinical information, more a “trust but verify” resource where they can find information on their active licenses, and other similar things someone might want to read up on before seeing a new doctor for the first time.  Some people also use it to find new doctors.\n\nThe site has millions of pages broken down by:\n\n* Millions of doctor pages - We take existing public information and make it easily searchable for people to find the information they want. This materializes into millions of pages, one for each doctor who has published their license information.\n* Hundreds of specialty pages - One for each specialty, e.g. Primary care, chiropractor, cardiologist \n* Thousands of location pages - State and city pages so people can find doctors in their location\n* Hundreds of thousands of specialty + location pages - Per",
+      "engagement": 14,
+      "url": "https://reddit.com/r/bigseo/comments/1qe1zgl/will_adding_thousands_of_new_pages_hurt_or_dilute/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "bigseo",
+      "author": "Crescitaly",
+      "date": "2026-01-22",
+      "title": "Does brand presence/social following indirectly impact SEO performance?",
+      "text": "Curious to hear from experienced SEOs on this topic that seems underexplored.\n\n\n\n\\*\\*The hypothesis:\\*\\*\n\n\n\nBrand signals (social following, brand mentions, direct traffic) may indirectly influence ranking performance even if they're not direct ranking factors.\n\n\n\n\\*\\*Observations from client work:\\*\\*\n\n\n\n1. \\*\\*Branded search correlation\\*\\* - Sites with higher branded search volume seem to rank better for non-branded terms too. Chicken or egg?\n\n\n\n2. \\*\\*CTR in SERPs\\*\\* - Established brands with recognizable names get higher CTR even when ranking lower, potentially improving positions over time through user signals.\n\n\n\n3. \\*\\*Link acquisition\\*\\* - Sites with visible social presence seem to attract natural links more easily. Journalists/bloggers check social profiles before linking.\n\n\n\n4. \\*\\*E-E-A-T signals\\*\\* - Author and brand presence across multiple platforms may contribute to perceived expertise and trustworthiness.\n\n\n\n\\*\\*The question for discussion:\\*\\*\n\n\n\nFor new sites comp",
+      "engagement": 13,
+      "url": "https://reddit.com/r/bigseo/comments/1qjvo1p/does_brand_presencesocial_following_indirectly/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "whats-in-a-name_",
+      "date": "2026-02-13",
+      "title": "How important are alt tags with regards to AI optimization?",
+      "text": "Hello folks! Wanted your views here. \n- I work with a informational/reference website. They have a lot of visual images/diagrams. These images currently have an alt tag which is the same as heading, and may have a paragraph or 2 inferring to the image/helping with explanation. \nI have been seeing a lot of infographics and diagrams, in the search results these days. I understand that LLMs/Google is using OCR to understand text on images better.\nDo you think it is worth the effort to manually review these images and add an alt text? \nMy thoughts: only work on process diagrams and photographs - as these may need additional pointers or explanation from an AI optimization/llm learning perspective. \nI am little confused here, would love your perspective on how y'all decide? And if the juice is even worth the squeeze?",
+      "engagement": 11,
+      "url": "https://reddit.com/r/SEO/comments/1r3ykfk/how_important_are_alt_tags_with_regards_to_ai/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "nickfb76",
+      "date": "2026-02-04",
+      "title": "Biweekly Tech/AI SEO Job Listings ~ 2/4",
+      "text": "* [SEO Manager \\~ MC Management \\~ $95,000-110,000 \\~ Hybrid – Fort Lauderdale, Florida (US)](https://www.seojobs.com/job/seo-manager-mc-management/)\n* [Manager, Growth Content Marketing, Subproduct specialization \\~ Airwallex \\~ $200,000-$250,000 \\~ In-office (USA) \\~ San Francisco, CA, United States](https://www.seojobs.com/job/manager-growth-content-marketing-subproduct-specialization-airwallex/)\n* [SEO Analyst \\~ Rogue Fitness \\~ $60,000-$90,000 \\~ In-office (Columbus, OH, United States)](https://www.seojobs.com/job/seo-analyst-rogue-fitness/)\n* [SEO Specialist \\~ Toptal \\~ $60,000-$80,000 \\~ Remote (USA)](https://www.seojobs.com/job/seo-specialist-toptal/)\n* [SEO Analyst \\~ NetReputation.com \\~ $50,000-$85,000 \\~ Remote (WW)](https://www.seojobs.com/job/seo-analyst-netreputationcom/)\n* [SEO Specialist \\~ Amsive LLC \\~ $65,000-$85,000 \\~ Remote (USA)](https://www.seojobs.com/job/seo-specialist-amsive-llc/)\n* [Associate Director, Technical SEO \\~ Brainlabs \\~ $76,000 – $132,000 USD ",
+      "engagement": 11,
+      "url": "https://reddit.com/r/TechSEO/comments/1qvupd2/biweekly_techai_seo_job_listings_24/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "Sufficient_Fuel5269",
+      "date": "2026-01-28",
+      "title": "Technical trends that are guiding digital marketing in 2025",
+      "text": "The marketing stack is evolving rapidly. Several changes are directly impacting how we optimize and measure:\n\nData-driven attribution models in the face of the disappearance of third-party cookies.\n\nAutomation with generative AI to accelerate content, segmentation, and testing workflows.\n\nSearch engine optimization with AI (SEO+AI): greater focus on EEAT, semantic embeddings, and generated responses.\n\nFirst-party data + CDPs as the core of omnichannel personalization and activation.\n\nAdvanced measurement with incrementality testing and more accessible MMM models.\n\nWhat technologies or frameworks are your teams adopting?",
+      "engagement": 11,
+      "url": "https://reddit.com/r/digital_marketing/comments/1qp8anb/technical_trends_that_are_guiding_digital/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "JooksKIDD",
+      "date": "2026-01-27",
+      "title": "Photographer Starting From Scratch - Where To Start?",
+      "text": "I currently am a fashion and portrait photographer based in New York. In a push to get more and diverse clients this year, I was thinking I should start optimizing my website for SEO in order to get people searching for what I offer (basically headshot photographers in New York). I know this isn't an end all be all, but I figured that SEO could be a good place to start. In 2026, what are some best practices you'd recommend? If you were starting with a new website today, what would you do to bring attention to it? My website currently just has my portfolio, an about me and other things. Should I add a blog and start posting my recent test shoots/work there? Just curious",
+      "engagement": 10,
+      "url": "https://reddit.com/r/SEO/comments/1qojauf/photographer_starting_from_scratch_where_to_start/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "Acceptable_Ad7676",
+      "date": "2026-02-13",
+      "title": "Methodology check: Competitor keyword research - how do you do this?",
+      "text": "Hey guys,\n\nI’d love a quick methodology check.\n\nI’m working on a localization project and have been asked to identify which terms competitors use in Norwegian for a query *“xyz”*.\n\nI already have a defined competitor set. My question is less about what tools exist and more about best practice for extracting real keyword signals.\n\n**My current approach:**\n\n1. Translate the core keyword into natural Norwegian variants\n2. Review competitor pages for title tags, H1s, subheaders, and recurring terminology.\n3. Check what Google actually surfaces in Norwegian SERPs to validate search intent.\n4. Use tools to see ranking keywords and confirm search volume.\n\nWhere I’d appreciate expert input:\n\n* Is this the right order of operations?\n* Would you prioritize SERP analysis over competitor-page language?\n* Any favorite workflows for avoiding “direct translation SEO” and instead finding what people actually search for?\n\nThank you so much!!",
+      "engagement": 10,
+      "url": "https://reddit.com/r/SEO/comments/1r3qy7w/methodology_check_competitor_keyword_research_how/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "SonicLinkerOfficial",
+      "date": "2026-01-21",
+      "title": "Traffic looked normal. Brand discovery through AI quietly dropped.",
+      "text": "**Our team still measures success by clicks.**  \nFair enough, that’s what our tools show us.\n\n*Enter AI and LLMs.*\n\nThe main issue is leadership frothing at the mouth to get cited on ChatGPT but at the same time thinking that just means **\"write more blogs\"**.\n\nNow, if a model doesn't pull the product, pricing, or eligibility into the short list or answer summary, there's nothing.  \nThe part that sucks is there's no indication anything's off; no impressions, CTR, and nothing in GA to warn you.\n\nMy concern is that by the time our organic traffic starts sliding or GA4 shows traffic from AI, it'll already be too late for us to earn that visibilty.\n\n*I’m not trying to optimize prompts here. I’m trying to understand why some sites get picked at all.*\n\nFew things I started trying in order to clear this up internally.\n\n**1. Separate selection from clicks**\n\nClicks are how humans behave.\n\nAI visibility is about getting cited.\n\nWhat are the main features/solutions of your business? Ask google a",
+      "engagement": 10,
+      "url": "https://reddit.com/r/digital_marketing/comments/1qj0j8t/traffic_looked_normal_brand_discovery_through_ai/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "ChefDwayne",
+      "date": "2026-01-29",
+      "title": "What is the truth on Service Area Business (SAB) rankings in the actual local pack (not searching from maps)?",
+      "text": "Specifically, I understand people say it ranks lower in the map pack. But isn't the ranking in Google Maps different from the SERP results of the GBP? So would SAB maybe not be as affected in the actual local pack seen in the normal search results? Theoretically it would make sense for it to rank much worse on Maps because often people want directions or to go to a place if they're looking on there but I can't find any info on this. Or are they just the same exact thing?\n\nIn general I've also been using whitespark's local search ranking factors for 2026 to optimize and the guy from that article mentions he believes the whole SAB ranking worse is a possible myth/bug (for example in the test cases where the SEO experts/researchers simply hide the address as an experiment, that may cause google to lose the geocoordinates and has to makes a guess of where to put the address, often misplacing it very far away.)\n\nHowever if it isn't a myth, and if it takes hundreds of reviews and amazing SEO",
+      "engagement": 9,
+      "url": "https://reddit.com/r/SEO/comments/1qqfxvg/what_is_the_truth_on_service_area_business_sab/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "SnooGiraffes2854",
+      "date": "2026-01-23",
+      "title": "Major EU Retailers are not ready for Agentic Commerce",
+      "text": "For the past month or so, I’ve been studying major retail brands in Europe and found that they are far from ready for the new Agentic Commerce era. This creates a great opportunity for smaller e-commerce brands.\n\nThe list includes 30 brands spread across 7 categories: Grocery (10), Fashion (5), Home Improvement (4), Furniture (3), Pet Care (3), Electronics (3), and Health &amp; Beauty (2).\n\nTests were performed semi-automatically and included the following steps:\n\n* AI Overview searches using structures such as *“best &lt;product&gt; for &lt;context&gt; under &lt;price&gt;”* and *“how to &lt;verb&gt; &lt;context&gt;”*;\n* Website crawling with intelligent page categorization and interpretation;\n* Internal structure and concept correlation on a dedicated website graph;\n* Agentic Commerce protocol implementations (ACP, UCP, AP2, MCP, A2A, and others).\n\n# What was found:\n\n* **Little to no results for AI Overview prompts:** Recommendations were often attributed to international brands or hi",
+      "engagement": 9,
+      "url": "https://reddit.com/r/SEO/comments/1qkuaga/major_eu_retailers_are_not_ready_for_agentic/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "frdiersln",
+      "date": "2026-02-10",
+      "title": "We need a way to debug \"LLM Search Hops\"",
+      "text": "I'm trying to reverse-engineer how Perplexity and Gemini construct their search chains. When a complex query comes in, the model breaks it down into multiple internal Google/Bing searches. The problem is, I can't see those intermediate steps. Does anyone know a script or a method to \"log\" the actual search queries an LLM generates during its reasoning phase? I need to see the raw search requests, not just the final cited sources.",
+      "engagement": 9,
+      "url": "https://reddit.com/r/TechSEO/comments/1r0n34m/we_need_a_way_to_debug_llm_search_hops/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "Odd_District4130",
+      "date": "2026-01-25",
+      "title": "Testing a new React 19 approach to JSON-LD and Metadata rendering",
+      "text": "React apps are often notorious for SEO issues. I tested a new method that ensures metadata is present in the initial render stream, solving common indexing delays.\n\n[https://github.com/ATHARVA262005/react-meta](https://github.com/ATHARVA262005/react-meta)\n\n[https://www.npmjs.com/package/react-meta-seo](https://www.npmjs.com/package/react-meta-seo)",
+      "engagement": 8,
+      "url": "https://reddit.com/r/TechSEO/comments/1qm7rwp/testing_a_new_react_19_approach_to_jsonld_and/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "Batson_Beat",
+      "date": "2026-01-24",
+      "title": "AI search + SEO: how are you adjusting workflows in practice?",
+      "text": "Seeing more talk around AI answers, GEO/AEO, and LLM-based search, but most explanations still feel vague.\n\nFor folks actually testing this:\n\n• Are you changing content structure or entity coverage?\n\n• Doing anything differently with internal linking?\n\n• What overlaps with normal SEO vs what’s new?\n\nMostly looking for real-world experience what helped, what didn’t, what turned out to be noise.",
+      "engagement": 8,
+      "url": "https://reddit.com/r/digital_marketing/comments/1qlozma/ai_search_seo_how_are_you_adjusting_workflows_in/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "Forward_Tackle_6487",
+      "date": "2026-02-13",
+      "title": "Which Open-Source CRM actually handles AI-Indexing and AEO properly?",
+      "text": "I’m tired of paying the \"HubSpot Tax\" for a bloated UI and locked-down database. I’ve been architecting custom GTM engines for B2B startups, and I’m hitting a wall with how traditional CRMs handle content and search-ability.\n\nI’ve played with **Strapi** for headless needs, but I’m looking for a CMS that is actually built for the **AEO (Answer Engine Optimization)** era. I need something where the data structure doesn't just sit in a silo but is ready for LLM-scraping and AI search ability from the jump. \n\n**The Question:**\n\n* Are you finding better SEO/Discovery results by using a headless CMS (like Strapi) *as* your CRM, or is that a recipe for technical debt?\n\nI’m looking for answers from people who have actually pushed code or managed a 10k+ monthly traffic through these systems. ",
+      "engagement": 7,
+      "url": "https://reddit.com/r/SEO/comments/1r3y8wm/which_opensource_crm_actually_handles_aiindexing/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "DowntownLaugh454",
+      "date": "2026-02-15",
+      "title": "Is seo still worth it in 2026?",
+      "text": "I keep seeing people say SEO is dead, but at the same time I see businesses getting solid traffic from organic search. Paid ads are getting more expensive, and social reach feels unpredictable.\n\nFor those actively working in digital marketing right now, are you still investing heavily in SEO? If so, what’s actually working for you, content, backlinks, technical fixes, niche authority?\n\nCurious what strategies are driving real results this year.",
+      "engagement": 7,
+      "url": "https://reddit.com/r/digital_marketing/comments/1r5cvoq/is_seo_still_worth_it_in_2026/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "soulful99",
+      "date": "2026-02-10",
+      "title": "YouTube ads waste tool idea",
+      "text": "I'm an engineer building a tool to automatically find wasted spend in YouTube ad campaigns (irrelevant placements, wrong geos, bad scheduling). Before I build anything, I want to understand: how do you currently audit your YouTube placements? How much time does it take? is this a real problem I should pursue?",
+      "engagement": 6,
+      "url": "https://reddit.com/r/SEO/comments/1r0y0da/youtube_ads_waste_tool_idea/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "omarwilson1",
+      "date": "2026-01-20",
+      "title": "Is it a myth in 2026 that technical SEO alone can rank a website without quality content?",
+      "text": "In 2026, it is largely a myth that technical SEO alone can rank a website without quality content. Technical SEO helps search engines crawl, index, and understand a site efficiently, but it does not create value for users by itself. Google’s algorithms now heavily focus on user intent, content usefulness, experience, and trust signals. Even a technically perfect website will struggle to rank if the content is thin, outdated, or not helpful. Technical SEO is the foundation, but quality content, relevance, and authority are what actually drive rankings and long-term visibility in modern search results.",
+      "engagement": 6,
+      "url": "https://reddit.com/r/TechSEO/comments/1qhr3jm/is_it_a_myth_in_2026_that_technical_seo_alone_can/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "SonicLinkerOfficial",
+      "date": "2026-01-30",
+      "title": "Looking at AI answer selection using prompts, content extractability, and server logs",
+      "text": "I’ve been trying to figure out how to measure visibility when AI answers don’t always send anyone to your site.\n\nA lot of AI driven discovery just ends with an answer. Someone asks a question, gets a recommendation, makes a call, and never opens a SERP. Traffic does not disappear, but it also stops telling the whole story.\n\nSo instead of asking “how much traffic did AI send us,” I started asking a different question:\n\n**Are we getting picked at all?**\n\nI’m not treating this as a new KPI, (still a ways off from getting a usable KPI for AI visibility) just a way to observe whether selection is happening at all.\n\nHere’s the rough framework I’ve been using.\n\n**1) Prompt sampling instead of rankings**\n\nStarted small.\n\nGrabbed 20 to 30 real questions customers actually ask. The kind of stuff the sales team spends time answering, like:\n\n* \"Does this work without X\"\n* “Best alternative to X for small teams”\n* “Is this good if you need \\[specific constraint\\]”\n\nRun those prompts in the LLM of y",
+      "engagement": 5,
+      "url": "https://reddit.com/r/TechSEO/comments/1qr32ux/looking_at_ai_answer_selection_using_prompts/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "manishblp",
+      "date": "2026-02-05",
+      "title": "Does adding photos to Google Business Profile help ranking? What about geo-tagged images?",
+      "text": "I’ve seen mixed opinions on this. Some say regularly adding photos to a Google Business Profile helps with visibility and engagement, and others say it has zero direct impact. Also, is adding **geo-tagged images** still useful in 2026, or does Google completely ignore EXIF data now?\n\nWould love to hear what actually works from people doing Local SEO every day.",
+      "engagement": 5,
+      "url": "https://reddit.com/r/digital_marketing/comments/1qwwz3s/does_adding_photos_to_google_business_profile/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "Comfortable_Weird891",
+      "date": "2026-02-12",
+      "title": "After Working With 1,000+ E-commerce Brands, Here’s What Actually Drives Conversion",
+      "text": "I’ve worked as an e-commerce consultant at Amazon for 6 years and have supported more than 1,000 brands across supplements, beauty, apparel, home, and electronics. Some were just getting started, others were already doing eight figures.\n\nOne pattern keeps repeating.\n\nThe brands that grow fastest are not necessarily the ones spending the most on ads. There are already countless tools and best practices for keyword research, placements, and campaign optimization. Traffic is important, but it’s rarely the real bottleneck.\n\nThe real gap is conversion.\n\nWhen I review product pages and brand stores from smaller brands, I often see a weak value proposition above the fold, generic lifestyle photos that look nice but don’t communicate benefits, no clear structure in how benefits are presented, SEO formatting that feels robotic, and inconsistent branding across marketplace and DTC channels. Nothing is completely broken, but nothing is systematically optimized either.\n\nMost small brands lack spee",
+      "engagement": 5,
+      "url": "https://reddit.com/r/digital_marketing/comments/1r384jj/after_working_with_1000_ecommerce_brands_heres/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "AdRude3836",
+      "date": "2026-02-07",
+      "title": "SEO noob question about image file naming and AI",
+      "text": "I’m still pretty new to SEO and have mostly been learning by optimizing my own local business site and helping friends as practice.\n\nThrough that process, I managed to rank my own site number one locally for some competitive keywords, and I’ve also noticed AI tools like ChatGPT recommending my business locally and even at a broader level when people ask for suggestions. Most of what I learned came from trial and error and using AI to teach myself the fundamentals.\n\nOne area that kept coming up during that process was image file naming. When dealing with a lot of images, manually renaming files to be descriptive and consistent felt tedious and easy to mess up, so I leaned on AI to help generate filenames while I was learning.\n\nThat led me to a simple question:  \nis there already a tool out there that people actually use to batch rename image files using AI for SEO purposes?\n\nI’m not trying to promote anything or sell a tool, just genuinely looking for suggestions and trying to understan",
+      "engagement": 4,
+      "url": "https://reddit.com/r/SEO/comments/1qy63qh/seo_noob_question_about_image_file_naming_and_ai/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "Pure_Data3489",
+      "date": "2026-02-15",
+      "title": "I reverse-engineered how agencies are using AI to turn Instagram into a client pipeline. Full breakdown of what's actually working in 2026",
+      "text": "**THIS IS GOING TO BE VERY LONG but it is worth your time**  \n  \nIf you run an agency and you're not treating Instagram as a lead generation system , you're behind.\n\nI spent some time pulling this apart. Here's everything I found.\n\n**First — the numbers that made me take this seriously**\n\n2 billion monthly users. 33 minutes of daily average scroll time. 61% of users actively research products and services on the platform — including enterprise buyers and B2B decision makers.\n\nFor agencies specifically: Reels get a **3.2% engagement rate** vs 1.1% for static posts. They drive **41% higher click-through rates** to your website. Your potential clients are scrolling right now. The question is whether your agency shows up when they do.\n\n**What's actually dead in 2026 (stop doing this)**\n\n* Single-message DM blasts with no follow-up\n* Generic \"thanks for following!\" auto-replies\n* Link-only messages with zero conversation\n* Bulk follow/unfollow tools (these will get you banned — more on this",
+      "engagement": 4,
+      "url": "https://reddit.com/r/digital_marketing/comments/1r5hh8i/i_reverseengineered_how_agencies_are_using_ai_to/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "Existing-Cod5443",
+      "date": "2026-02-13",
+      "title": "SEO vs GEO in 2026: Which one is actually ruling search now",
+      "text": "Hey everyone,\n\nWith AI search tools like ChatGPT, Perplexity, and Google's AI Overviews everywhere, I've been seeing tons of chatter about GEO (optimizing for generative engines) vs traditional SEO. Is GEO taking over, or is SEO still king for driving real traffic?\n\nFrom what I've read:\n\n* SEO focuses on crawling, keywords, backlinks, and Google rankings.\n* GEO seems to prioritize comprehensive content, authority signals, FAQs, and getting cited in AI responses (e.g., long-form guides with stats and quotes).\n\nBut which is ruling in 2026?\n\n* Are you seeing more traffic from AI answers than Google SERPs?\n* GEO tips that actually work (beyond \"write longer posts\")?\n* Can you rank well without doing both?\n\nShare your strategies, case studies, or tools you're using. GEO hype or real shift?​\n\nThanks!",
+      "engagement": 4,
+      "url": "https://reddit.com/r/digital_marketing/comments/1r3ksp6/seo_vs_geo_in_2026_which_one_is_actually_ruling/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "Djibusse",
+      "date": "2026-02-11",
+      "title": "Some questions from a french newbie",
+      "text": "Hey everyone, I'm a total newbie in seo and a friend asked me if i'm interrested in working on his website strategy\n\nI’m working on the SEO strategy for a service business (chauffeur/VTC), and I’m trying to clarify a few things about **local SEO**, **AI‑driven search**, and **site structure**. I’d love to get insights from people who’ve tested this at scale.\n\nHere are my questions:\n\n# 1. How important is it to have a multilingual website today?\n\nDoes having an English version (or more languages) still help with SEO, or is it only useful for user experience?  \nDoes it have any impact on AI‑generated answers in search?\n\n# 2. Is it true that having a FAQ section improves “AI SEO”?\n\nI keep hearing that FAQs help with AI overviews, featured snippets, and structured answers.  \nIs this actually proven, or just speculation?\n\n# 3. Should service pages be combined with location pages?\n\nFor example:\n\n* “Airport transfer”\n* “Airport transfer in City X”\n\nIs it smart to merge them into one page, or ",
+      "engagement": 3,
+      "url": "https://reddit.com/r/SEO/comments/1r1w513/some_questions_from_a_french_newbie/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "TechSEO",
+      "author": "SonicLinkerOfficial",
+      "date": "2026-01-15",
+      "title": "We audited how a Casper product page actually resolves after crawl, extraction, and normalization",
+      "text": "**If you’re working on JS-heavy ecommerce pages, rendering pipelines, or crawl reliability, this is worth sanity-checking.**\n\nWe recently ran a competitive audit for a mattress company. We wanted to see what actually survives when automated systems crawl a real ecommerce page and try to make sense of it.\n\n**Casper was the reference point.**\n\nBasically: **what we see vs what the crawler ends up with are two very different worlds.**  \n  \n**Here’s what a normal person sees on a Casper product page:**\n\n* You immediately get the comfort positioning.\n* You feel the brand strength.\n* The layout explains the benefits without you thinking about it.\n* Imagery builds trust and reduces anxiety.\n* Promos and merchandising steer your decision.\n\n*Almost all of the differentiation lives in layout, visuals, and story flow. Humans are great at stitching that together.*\n\n**Now here’s what survives once the page gets crawled and parsed:**\n\n* Navigation turns into a pile of links.\n* Visual hierarchy disapp",
+      "engagement": 3,
+      "url": "https://reddit.com/r/TechSEO/comments/1qdpjy7/we_audited_how_a_casper_product_page_actually/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "Quick_Chard_3444",
+      "date": "2026-02-12",
+      "title": "Seeking a Marketing Co-founder/Partner for an AI-Powered WP Builder (Clean Code, 100/100 PageSpeed)",
+      "text": "Hi everyone,\n\n\nI’ve been a Creative Front-end Engineer for 10+ years, and I’m tired of seeing how modern 'page builders' (Elementor/Divi) have bloated the WordPress ecosystem. \n\nThey make sites slow, hard to maintain, and kill SEO.\nThat’s why I built Faisan Builder, currently in Public Beta / Early Access.\n\n\nThe Solution:\n\n\nInstead of dragging and dropping heavy blocks, my plugin uses AI (Gemini) to generate clean, semantic, and ultra-lightweight HTML/CSS directly into WordPress.\n\n\nResult: Instant 100/100 PageSpeed scores out of the box.\n\n\nGoal: Provide the performance of a custom-coded Astro/Next.js site but within the familiar WP dashboard that clients love.\n\n\nThe Current State:\n\n\nCore engine is stable.\n\n\nAI logic is fully integrated.\n\n\nVisual editor (with a unique editable content array system) is live.\n\n\nThe Partnership:\n\n\nI’m a product-first engineer. I can ship features fast, but I need a partner who can 'ship' the marketing. I’m looking for someone to lead growth, outreach, and ",
+      "engagement": 3,
+      "url": "https://reddit.com/r/digital_marketing/comments/1r33ztq/seeking_a_marketing_cofounderpartner_for_an/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "AlternativeYou4536",
+      "date": "2026-02-03",
+      "title": "Spent weeks on my WordPress site… Google PageSpeed destroyed me",
+      "text": "We spend weeks polishing our WordPress site, choosing the best images, and then when we run Google PageSpeed… cold shower.\n\nEverything is red, the site is slow, and you start thinking SEO is going to bury you.\n\nHonestly, I was tired of reading 50-page guides that make it sound like you need to be a NASA engineer just to gain 3 points on your score.\n\nSo I decided to code something simple but insanely effective for webmasters. A tool where you paste your URL and, instead of just giving you a bad grade, it directly gives you the PHP/JS code to copy-paste to fix the issues.\n\nIt’s free, it’s practical, and it saves you from installing 15 plugins that end up slowing your site even more lol.\n\nWhy am I doing this? Because it’s my passion, and I want everyone to benefit from it. We all know a slow website can be disastrous for conversions, SEO, and more.\n\nI just want to make the web faster in 2026, for a better user experience.\n\n\\#WordPress #SEO #WebPerformance #WebMarketing #GrowthHacking ",
+      "engagement": 3,
+      "url": "https://reddit.com/r/digital_marketing/comments/1qulip8/spent_weeks_on_my_wordpress_site_google_pagespeed/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "Green_Database9919",
+      "date": "2026-02-13",
+      "title": "Meta’s New AI Brain Is Thirsty",
+      "text": "Anyone heard of Meta’s new Generative Ads Recommendation Model (GEM)?\n\nI spent some time looking into it.\n\nIn the old days Meta used mini brains that didn't talk to each other. One predicted clicks, another watched views, and a third guessed at purchases. Instead of just seeing a single click from five minutes ago it understands the context of a person’s long term journey toward a sale at a much deeper level.\n\nGEM uses an LLM inspired architecture to understand tiny actions, like if a user pausing on a Reel or ads for 3 seconds but not clicking. It acts as a master teacher. Once it learns a pattern, it transfers that knowledge to the smaller, faster models that actually serve your ads. Example is when users who watch this type of reel tend to buy this type of shoe or things like that.\n\nMeta literally have to reinvent their hardware by using thousands of GPUs with new training stack that is 23x faster. If you feed it bad data like bot clicks or duplicate events the system will optimize ",
+      "engagement": 3,
+      "url": "https://reddit.com/r/digital_marketing/comments/1r42qtu/metas_new_ai_brain_is_thirsty/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "Ashwani1987",
+      "date": "2026-02-07",
+      "title": "Which are the top digital marketing Companies? (List of 10)",
+      "text": "Looking for a solid list of **top digital marketing Companies In World**. Here’s a curated list — feel free to add more in the comments!\n\n1. **Softtrix** – Full-stack digital &amp; growth marketing with SEO, PPC, content &amp; strategy\n2. **WebFX** – Known for ROI-driven SEO &amp; PPC services\n3. **Disruptive Advertising** – PPC &amp; CRO specialists\n4. **Ignite Visibility** – Full digital suite with great analytics focus\n5. **Thrive Internet Marketing** – SEO, social, PPC, and reputation management\n6. **Single Grain** – SaaS and growth-focused digital marketing\n7. **SmartSites** – PPC + SEO with strong ROI results\n8. **Straight North** – B2B lead generation &amp; SEO\n9. **KlientBoost** – PPC + landing page optimization\n10. **Wpromote** – Full ecosystem digital marketing\n\nSome are large global players, others specialize in certain areas.  \n  \n**Your turn:** who else deserves to be on this list?",
+      "engagement": 3,
+      "url": "https://reddit.com/r/digital_marketing/comments/1qybadb/which_are_the_top_digital_marketing_companies/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "akash_09_",
+      "date": "2026-01-30",
+      "title": "How to optimize for AI search ( here is what i’m doing )",
+      "text": "Here is how I'm doing:\n\n1. Get a tool to track &amp; get information about optimization. ( we use Amadora AI )\n2. Learn what your potential users are searching, so you can create prompts to track; you can use Google console as well for this.\n3. Track those prompts in your AI optimization tool and let it run for a week to get enough data.\n4. you'll get the dashboard data with how you're doing on LLM but it's not useful yet! \n5. check optimization plans from the tool like models, action items and gap analysis etc.\n6. work on those key points that tool is recommending.\n7. look at the AI answer data &gt; go to sources and try to understand what domains &amp; articles AI is using to answer certain prompt.\n8. check if you're there.. if not, try to create similar but better content &amp; clusters and try to be present on those articles AI is using to answer!!\n\nthat's it! and you're doing much better than anybody else in market.",
+      "engagement": 3,
+      "url": "https://reddit.com/r/digital_marketing/comments/1qr1tch/how_to_optimize_for_ai_search_here_is_what_im/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "digital_marketing",
+      "author": "whats-in-a-name_",
+      "date": "2026-02-13",
+      "title": "How important are alt tags with regards to AI optimization?",
+      "text": "Hello folks! Wanted your views here. \n- I work with a informational/reference website. They have a lot of visual images/diagrams. These images currently have an alt tag which is the same as heading, and may have a paragraph or 2 inferring to the image/helping with explanation. \nI have been seeing a lot of infographics and diagrams, in the search results these days. I understand that LLMs/Google is using OCR to understand text on images better.\nDo you think it is worth the effort to manually review these images and add an alt text? \nMy thoughts: only work on process diagrams and photographs - as these may need additional pointers or explanation from an AI optimization/llm learning perspective. \nI am little confused here, would love your perspective on how y'all decide? And if the juice is even worth the squeeze?",
+      "engagement": 2,
+      "url": "https://reddit.com/r/digital_marketing/comments/1r3ym2g/how_important_are_alt_tags_with_regards_to_ai/"
+    },
+    {
+      "source": "reddit",
+      "subreddit": "SEO",
+      "author": "MAN0L2",
+      "date": "2026-02-15",
+      "title": "Is Github pages a good option for SEO?",
+      "text": "I've created a mini site which is something in between documentation and a marketing funnel. I've made a good informational architecture and interlinking.\n\nI've added even blog posts and compassion page (vs pages).\n\nI would say I cover the most important keywords.\n\nI saw these kind of tools are not widely spread in github as whole (ai sdr).\n\nSo it clicked to me that I could deploy a github pages and make a supplement site (parasite seo) that might rank in Google and LLMs.\n\nIs my hypothesis correct?",
+      "engagement": 1,
+      "url": "https://reddit.com/r/SEO/comments/1r5epkp/is_github_pages_a_good_option_for_seo/"
+    }
+  ]
 }

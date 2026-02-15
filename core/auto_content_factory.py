@@ -7,8 +7,12 @@ from dotenv import load_dotenv
 import sys
 sys.path.insert(0, os.path.dirname(__file__))
 
-from wp_bridge import WordPressBridge
-from dataforseo_bridge import DataForSEOBridge
+try:
+    from core.wp_bridge import WordPressBridge
+    from core.dataforseo_bridge import DataForSEOBridge
+except ImportError:
+    from wp_bridge import WordPressBridge
+    from dataforseo_bridge import DataForSEOBridge
 # 假設我們有一個 generate_image 的封裝，或是直接在邏輯中處理
 
 class AutoContentFactory:

@@ -40,18 +40,18 @@ FRAMEWORK_PATH = os.path.join(BASE_DIR, "geo_framework.md")
 
 # 可能用於 prompt injection 的模式
 _INJECTION_PATTERNS = [
-    r'(?i)ignore\s+(all\s+)?previous\s+instructions',
-    r'(?i)disregard\s+(all\s+)?(above|prior|previous)',
-    r'(?i)you\s+are\s+now\s+',
-    r'(?i)new\s+instructions?\s*:',
-    r'(?i)system\s*:\s*',
-    r'(?i)override\s+(all\s+)?rules',
-    r'(?i)forget\s+(everything|all)',
-    r'(?i)act\s+as\s+(a\s+)?',
-    r'(?i)do\s+not\s+follow',
-    r'(?i)output\s+(your|the|all)\s+(api|secret|key|prompt|instruction)',
+    r'ignore\s+(all\s+)?previous\s+instructions',
+    r'disregard\s+(all\s+)?(above|prior|previous)',
+    r'you\s+are\s+now\s+',
+    r'new\s+instructions?\s*:',
+    r'system\s*:\s*',
+    r'override\s+(all\s+)?rules',
+    r'forget\s+(everything|all)',
+    r'act\s+as\s+(a\s+)?',
+    r'do\s+not\s+follow',
+    r'output\s+(your|the|all)\s+(api|secret|key|prompt|instruction)',
 ]
-_INJECTION_RE = re.compile('|'.join(_INJECTION_PATTERNS))
+_INJECTION_RE = re.compile('|'.join(_INJECTION_PATTERNS), re.IGNORECASE)
 
 
 def sanitize_text(text):
@@ -167,13 +167,24 @@ def analyze_with_openai(raw_posts, existing_framework):
         )
         result_text = response.choices[0].message.content
         result = json.loads(result_text)
-        if isinstance(result, dict) and "tips" in result:
-            return result["tips"]
-        elif isinstance(result, list):
+        
+        if isinstance(result, list):
             return result
-        else:
-            logger.warning(f"AI 回傳格式異常: {type(result)}")
-            return []
+        if isinstance(result, dict):
+            # 情況 1: 直接包含在 "tips" 鍵中
+            if "tips" in result and isinstance(result["tips"], list):
+                return result["tips"]
+            # 情況 2: AI 回傳了多個鍵，其中一個是列表且長度 > 0
+            for key, value in result.items():
+                if isinstance(value, list) and len(value) > 0:
+                    return value
+            # 情況 3: AI 被指示輸出 JSON 物件，結果它把整個內容當成一個物件回傳
+            #（如果物件包含 tip 鍵，則將其包裝成列表）
+            if "tip" in result:
+                return [result]
+        
+        logger.warning(f"AI 回傳格式異常或無資料: {result_text[:200]}")
+        return []
 
     try:
         return retry_with_backoff(
@@ -221,7 +232,13 @@ def main():
         return
 
     with open(args.input, "r", encoding="utf-8") as f:
-        raw_posts = json.load(f)
+        data = json.load(f)
+    
+    # 修改：根據 raw_trends.json 的結構提取貼文列表
+    if isinstance(data, dict) and "posts" in data:
+        raw_posts = data["posts"]
+    else:
+        raw_posts = data if isinstance(data, list) else []
 
     logger.info(f"📖 讀取了 {len(raw_posts)} 篇原始貼文")
 

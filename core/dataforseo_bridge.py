@@ -3,7 +3,10 @@ import base64
 import os
 import logging
 from dotenv import load_dotenv
-from retry_utils import retry_with_backoff
+try:
+    from core.retry_utils import retry_with_backoff
+except ImportError:
+    from retry_utils import retry_with_backoff
 
 logger = logging.getLogger(__name__)
 

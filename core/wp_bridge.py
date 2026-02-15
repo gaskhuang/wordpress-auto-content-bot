@@ -5,7 +5,10 @@ import logging
 from requests.auth import HTTPBasicAuth
 from dotenv import load_dotenv
 from datetime import datetime
-from retry_utils import retry_with_backoff
+try:
+    from core.retry_utils import retry_with_backoff
+except ImportError:
+    from retry_utils import retry_with_backoff
 
 # 設定日誌
 logger = logging.getLogger(__name__)

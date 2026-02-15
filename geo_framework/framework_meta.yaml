@@ -1,13 +1,16 @@
-version: "1.1"
-last_updated: "2026-02-16"
-learned_sources_count: 28
-
+version: '1.2'
+last_updated: '2026-02-16'
+learned_sources_count: 33
 changelog:
-  - date: "2026-02-16"
-    version: "1.1"
-    tips_added: 8
-    source: "Web Search 自動採集 (28 篇 SEO/GEO 來源)"
-  - date: "2026-02-15"
-    version: "1.0"
-    tips_added: 0
-    source: "初始版本 (從 aeo_guidelines_2026.md 遷移)"
+- date: '2026-02-16'
+  version: '1.2'
+  tips_added: 5
+  source: X/Reddit 自動採集
+- date: '2026-02-16'
+  version: '1.1'
+  tips_added: 8
+  source: Web Search 自動採集 (28 篇 SEO/GEO 來源)
+- date: '2026-02-15'
+  version: '1.0'
+  tips_added: 0
+  source: 初始版本 (從 aeo_guidelines_2026.md 遷移)
