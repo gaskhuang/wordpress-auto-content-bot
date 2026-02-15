@@ -155,6 +155,63 @@ class WordPressBridge:
             print(f"‼️ 請求過程發生錯誤: {e}")
             return None
 
+    def update_article(self, post_id, title=None, content=None, status=None, categories=None, tags=None, featured_media=None):
+        """
+        更新已發布的文章
+        :param post_id: 文章 ID
+        :param title: 新標題 (可選)
+        :param content: 新內容 (可選)
+        :param status: 新狀態 (可選)
+        :param categories: 新分類 ID 列表 (可選)
+        :param tags: 新標籤 ID 列表 (可選)
+        :param featured_media: 新精選圖片 ID (可選)
+        :return: 回傳 API 響應結果
+        """
+        update_url = f"{self.posts_url}/{post_id}"
+        data = {}
+        
+        if title: data["title"] = title
+        if content: data["content"] = content
+        if status: data["status"] = status
+        if categories: data["categories"] = categories
+        if tags: data["tags"] = tags
+        if featured_media: data["featured_media"] = featured_media
+
+        # 1. 預存取 (WAF Bypass)
+        try:
+            self.session.get(self.site_url, headers=self.headers, timeout=10)
+        except Exception as e:
+            print(f"⚠️ 預存取網站失敗: {e}")
+
+        # 2. 發送 POST 請求 (WordPress API 更新也是用 POST)
+        post_headers = self.headers.copy()
+        post_headers["Origin"] = self.site_url
+        post_headers["Referer"] = self.site_url + "/"
+
+        try:
+            print(f"🔄 正在更新文章 ID: {post_id}...")
+            response = self.session.post(
+                update_url, 
+                json=data, 
+                auth=self.auth, 
+                headers=post_headers,
+                timeout=15
+            )
+            
+            if response.status_code == 200:
+                print(f"✅ 成功更新文章: {post_id}")
+                return response.json()
+            else:
+                print(f"❌ 更新失敗! 狀態碼: {response.status_code}")
+                # 錯誤診斷
+                if response.status_code == 403 and "<title>" in response.text:
+                   error_title = response.text.split('<title>')[1].split('</title>')[0]
+                   print(f"伺服器回應標題: {error_title}")
+                return None
+        except Exception as e:
+            print(f"‼️ 更新請求過程發生錯誤: {e}")
+            return None
+
 if __name__ == "__main__":
     # 載入環境變數
     load_dotenv()
