@@ -98,13 +98,58 @@
 }
 
 /* 按鈕 */
-.gcr-run-now {
+.gcr-run-now,
+.gcr-generate-now {
     margin-bottom: 10px;
 }
 
-.gcr-run-now.loading {
+.gcr-run-now.loading,
+.gcr-generate-now.loading {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+.gcr-generate-now {
+    background-color: #00a32a !important;
+    border-color: #008a20 !important;
+    color: #fff !important;
+}
+
+.gcr-generate-now:hover {
+    background-color: #008a20 !important;
+    border-color: #006e1a !important;
+}
+
+.gcr-generate-now:focus {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #00a32a !important;
+}
+
+.gcr-action-label {
+    display: block;
+    font-size: 12px;
+    color: #646970;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+/* 類型標籤 */
+.gcr-type-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.gcr-type-generate {
+    background-color: #d7f8e0;
+    color: #00a32a;
+}
+
+.gcr-type-rewrite {
+    background-color: #e0edff;
+    color: #2271b1;
 }
 
 /* 日誌區域 */

@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Gasker Content Refresher
  * Plugin URI: https://gasker.tech
- * Description: 每天自動抓取最舊的文章,透過 AI Engine 改寫並更新,提升 SEO 新鮮度
- * Version: 1.0.2
+ * Description: AI 內容管理系統：自動改寫舊文章 + AI 生成全新文章,提升 SEO 新鮮度
+ * Version: 1.1.0
  * Author: Gasker Tech
  * Author URI: https://gasker.tech
  * License: GPL v2 or later
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 // 定義插件常量
-define('GCR_VERSION', '1.0.2');
+define('GCR_VERSION', '1.1.0');
 define('GCR_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('GCR_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('GCR_PLUGIN_FILE', __FILE__);
@@ -46,6 +46,7 @@ class Gasker_Content_Refresher
      * Cron Hook 名稱
      */
     const CRON_HOOK = 'gcr_daily_rewrite_event';
+    const CRON_HOOK_NEW = 'gcr_daily_new_post_event';
 
     /**
      * 獲取單例實例
@@ -82,11 +83,13 @@ class Gasker_Content_Refresher
 
         // AJAX 處理
         add_action('wp_ajax_gcr_run_now', array($this, 'ajax_run_now'));
+        add_action('wp_ajax_gcr_generate_now', array($this, 'ajax_generate_now'));
         add_action('wp_ajax_gcr_clear_logs', array($this, 'ajax_clear_logs'));
         add_action('wp_ajax_gcr_clear_debug_logs', array($this, 'ajax_clear_debug_logs'));
 
         // Cron 任務
         add_action(self::CRON_HOOK, array($this, 'process_old_posts'));
+        add_action(self::CRON_HOOK_NEW, array($this, 'generate_new_posts'));
 
         // 載入文字域
         add_action('plugins_loaded', array($this, 'load_textdomain'));
@@ -99,6 +102,7 @@ class Gasker_Content_Refresher
     {
         // 設置預設選項
         $default_settings = array(
+            // 改寫舊文章設定
             'posts_per_day' => 10,
             'cooldown_days' => 30,
             'language' => 'zh-TW',
@@ -109,6 +113,12 @@ class Gasker_Content_Refresher
             'notification_email' => get_option('admin_email'),
             'exclude_categories' => array(),
             'exclude_post_ids' => '',
+            // 新增文章設定
+            'enable_new_posts' => false,
+            'new_posts_per_day' => 1,
+            'new_post_topics' => '',
+            'new_post_category' => 0,
+            'new_post_status' => 'draft',
         );
 
         if (!get_option(self::OPTION_NAME)) {
@@ -124,6 +134,9 @@ class Gasker_Content_Refresher
         if (!wp_next_scheduled(self::CRON_HOOK)) {
             wp_schedule_event(time(), 'daily', self::CRON_HOOK);
         }
+        if (!wp_next_scheduled(self::CRON_HOOK_NEW)) {
+            wp_schedule_event(time(), 'daily', self::CRON_HOOK_NEW);
+        }
 
         // 清空 rewrite rules
         flush_rewrite_rules();
@@ -138,6 +151,10 @@ class Gasker_Content_Refresher
         $timestamp = wp_next_scheduled(self::CRON_HOOK);
         if ($timestamp) {
             wp_unschedule_event($timestamp, self::CRON_HOOK);
+        }
+        $timestamp_new = wp_next_scheduled(self::CRON_HOOK_NEW);
+        if ($timestamp_new) {
+            wp_unschedule_event($timestamp_new, self::CRON_HOOK_NEW);
         }
 
         // 清空 rewrite rules
@@ -200,6 +217,13 @@ class Gasker_Content_Refresher
         $sanitized['exclude_categories'] = isset($input['exclude_categories']) ? array_map('absint', $input['exclude_categories']) : array();
         $sanitized['exclude_post_ids'] = sanitize_text_field($input['exclude_post_ids']);
 
+        // 新增文章設定
+        $sanitized['enable_new_posts'] = isset($input['enable_new_posts']) ? true : false;
+        $sanitized['new_posts_per_day'] = absint($input['new_posts_per_day'] ?? 1);
+        $sanitized['new_post_topics'] = sanitize_textarea_field($input['new_post_topics'] ?? '');
+        $sanitized['new_post_category'] = absint($input['new_post_category'] ?? 0);
+        $sanitized['new_post_status'] = sanitize_text_field($input['new_post_status'] ?? 'draft');
+
         return $sanitized;
     }
 
@@ -232,6 +256,7 @@ class Gasker_Content_Refresher
             'nonce' => wp_create_nonce('gcr_ajax_nonce'),
             'strings' => array(
                 'running' => __('執行中...', 'gasker-content-refresher'),
+                'generating' => __('生成中...', 'gasker-content-refresher'),
                 'success' => __('成功完成!', 'gasker-content-refresher'),
                 'error' => __('發生錯誤', 'gasker-content-refresher'),
                 'confirm_clear' => __('確定要清除所有日誌嗎?', 'gasker-content-refresher'),
@@ -337,6 +362,285 @@ class Gasker_Content_Refresher
         self::clear_debug_logs();
 
         wp_send_json_success(array('message' => __('除錯日誌已清除', 'gasker-content-refresher')));
+    }
+
+    /**
+     * AJAX: 立即生成新文章
+     */
+    public function ajax_generate_now()
+    {
+        check_ajax_referer('gcr_ajax_nonce', 'nonce');
+
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(array('message' => __('權限不足', 'gasker-content-refresher')));
+        }
+
+        try {
+            $this->debug_log('=== 開始執行手動生成新文章任務 ===');
+
+            $this->debug_log('測試 AI Engine 連線...');
+            if (!$this->test_ai_engine()) {
+                $this->debug_log('AI Engine 連線測試失敗');
+                wp_send_json_error(array(
+                    'message' => 'AI Engine 連線失敗,請檢查 API Key 設定'
+                ));
+                return;
+            }
+            $this->debug_log('AI Engine 連線測試通過');
+
+            set_time_limit(600);
+            ini_set('memory_limit', '512M');
+
+            $result = $this->generate_new_posts();
+
+            $this->debug_log('生成完成: ' . json_encode($result, JSON_UNESCAPED_UNICODE));
+
+            wp_send_json_success($result);
+        } catch (Exception $e) {
+            $this->debug_log('AJAX 生成錯誤: ' . $e->getMessage());
+            wp_send_json_error(array(
+                'message' => '執行失敗: ' . $e->getMessage()
+            ));
+        } catch (Error $e) {
+            $this->debug_log('PHP 錯誤: ' . $e->getMessage());
+            wp_send_json_error(array(
+                'message' => 'PHP 錯誤: ' . $e->getMessage()
+            ));
+        }
+    }
+
+    /**
+     * 核心功能: 生成全新文章
+     */
+    public function generate_new_posts()
+    {
+        $this->debug_log('--- 開始生成新文章 ---');
+
+        $settings = get_option(self::OPTION_NAME);
+
+        // 檢查是否啟用新文章功能
+        $enable = $settings['enable_new_posts'] ?? false;
+        if (!$enable) {
+            $this->debug_log('新增文章功能未啟用');
+            return array(
+                'total' => 0,
+                'success' => 0,
+                'failed' => 0,
+                'skipped' => 0,
+                'posts' => array(),
+                'type' => 'generate',
+            );
+        }
+
+        $count = $settings['new_posts_per_day'] ?? 1;
+        $topics_raw = $settings['new_post_topics'] ?? '';
+        $category_id = $settings['new_post_category'] ?? 0;
+        $post_status = $settings['new_post_status'] ?? 'draft';
+        $ai_model = $settings['ai_model'] ?? 'gpt-4o';
+        $language = $settings['language'] ?? 'zh-TW';
+
+        // 解析題目清單
+        $topics = array_filter(array_map('trim', explode("\n", $topics_raw)));
+        if (empty($topics)) {
+            $this->debug_log('警告: 沒有設定任何題目');
+            return array(
+                'total' => 0,
+                'success' => 0,
+                'failed' => 0,
+                'skipped' => 0,
+                'posts' => array(),
+                'type' => 'generate',
+            );
+        }
+
+        // 取得已使用過的題目 (避免重複)
+        $used_topics = get_option('gcr_used_topics', array());
+
+        // 從題目清單中挑選未使用過的
+        $available_topics = array_diff($topics, $used_topics);
+        if (empty($available_topics)) {
+            // 所有題目都用過了，重置
+            $this->debug_log('所有題目已使用完畢，重置題目池');
+            $used_topics = array();
+            $available_topics = $topics;
+        }
+
+        $selected_topics = array_slice(array_values($available_topics), 0, $count);
+        $this->debug_log('本次選取 ' . count($selected_topics) . ' 個題目');
+
+        $results = array(
+            'total' => count($selected_topics),
+            'success' => 0,
+            'failed' => 0,
+            'skipped' => 0,
+            'posts' => array(),
+            'type' => 'generate',
+        );
+
+        foreach ($selected_topics as $topic) {
+            $this->debug_log('開始生成文章: ' . $topic);
+
+            $result = array(
+                'post_id' => 0,
+                'post_title' => $topic,
+                'status' => 'failed',
+                'message' => '',
+                'tokens_used' => 0,
+            );
+
+            try {
+                // 構建新文章 prompt
+                $prompt = $this->build_new_post_prompt($topic, $settings);
+                $this->debug_log('  Prompt 長度: ' . mb_strlen($prompt) . ' 字');
+
+                // 呼叫 AI Engine
+                $this->debug_log('  呼叫 AI Engine (模型: ' . $ai_model . ')...');
+                $ai_result = $this->call_ai_engine($prompt, $ai_model);
+
+                if (!$ai_result['success']) {
+                    $result['message'] = 'AI Engine 錯誤: ' . $ai_result['error'];
+                    $this->debug_log('  AI Engine 呼叫失敗: ' . $ai_result['error']);
+                    $results['failed']++;
+                    $results['posts'][] = $result;
+                    continue;
+                }
+
+                $this->debug_log('  AI Engine 回應成功');
+                $result['tokens_used'] = $ai_result['tokens_used'];
+
+                $content = $ai_result['content'];
+
+                // 驗證新文章內容
+                if (empty($content) || mb_strlen(strip_tags($content)) < 200) {
+                    $result['message'] = __('AI 生成內容過短,已跳過', 'gasker-content-refresher');
+                    $this->debug_log('  跳過: 內容過短');
+                    $results['skipped']++;
+                    $results['posts'][] = $result;
+                    continue;
+                }
+
+                // 建立新文章
+                $post_data = array(
+                    'post_title'   => $topic,
+                    'post_content' => $content,
+                    'post_status'  => $post_status,
+                    'post_type'    => 'post',
+                    'post_author'  => get_current_user_id() ?: 1,
+                );
+
+                if ($category_id > 0) {
+                    $post_data['post_category'] = array($category_id);
+                }
+
+                $new_post_id = wp_insert_post($post_data, true);
+
+                if (is_wp_error($new_post_id)) {
+                    $result['message'] = __('建立文章失敗: ', 'gasker-content-refresher') . $new_post_id->get_error_message();
+                    $this->debug_log('  建立失敗: ' . $new_post_id->get_error_message());
+                    $results['failed']++;
+                } else {
+                    $result['post_id'] = $new_post_id;
+                    $result['status'] = 'success';
+                    $result['message'] = __('成功生成新文章', 'gasker-content-refresher');
+
+                    // 記錄元資料
+                    update_post_meta($new_post_id, '_gcr_generated', current_time('mysql'));
+                    update_post_meta($new_post_id, '_gcr_topic', $topic);
+
+                    // 標記已使用的題目
+                    $used_topics[] = $topic;
+
+                    $this->debug_log('  文章建立成功! ID: ' . $new_post_id);
+                    $results['success']++;
+                }
+
+            } catch (Exception $e) {
+                $result['message'] = '異常錯誤: ' . $e->getMessage();
+                $this->debug_log('  捕獲異常: ' . $e->getMessage());
+                $results['failed']++;
+            }
+
+            $results['posts'][] = $result;
+        }
+
+        // 更新已使用題目
+        update_option('gcr_used_topics', $used_topics);
+
+        // 記錄日誌
+        $this->log_execution($results);
+
+        // 發送通知
+        if ($settings['enable_email_notification'] ?? false) {
+            $this->send_notification_email($results);
+        }
+
+        $this->debug_log('--- 新文章生成完成 ---');
+        $this->debug_log('總計: ' . $results['total'] . ', 成功: ' . $results['success'] . ', 失敗: ' . $results['failed'] . ', 跳過: ' . $results['skipped']);
+
+        return $results;
+    }
+
+    /**
+     * 構建新文章的 AI Prompt (遵循 GEO 黃金骨架)
+     */
+    private function build_new_post_prompt($topic, $settings)
+    {
+        $language = $settings['language'] ?? 'zh-TW';
+        $language_map = array(
+            'zh-TW' => '繁體中文',
+            'zh-CN' => '简体中文',
+            'en' => 'English',
+        );
+        $language_name = $language_map[$language] ?? '繁體中文';
+
+        $prompt = <<<PROMPT
+你是一位專業的 SEO/AEO 內容撰寫專家。請根據以下題目撰寫一篇完整的、高品質的部落格文章。
+
+**題目:** {$topic}
+
+**語言:** {$language_name}
+
+**文章結構要求 (嚴格遵循):**
+
+1. **導言** (1 段, 5-7 行)
+   - 第一句必須是可被 AI 直接引用的摘要答案
+   - 包含: 主題 → 關鍵優勢 → 讀者痛點 → 本文承諾 → 專家視角
+
+2. **H2-1: 核心概念** (原因 → 結果)
+   - 第一行直接回答「為什麼這很重要？」
+   - 包含 2-3 個 H3 小節,每節 3 個要點
+
+3. **H2-2: 實際應用** (條件 → 結果)
+   - 第一行可被 AI 直接生成為知識回答
+   - 包含具體條件和實踐方法
+
+4. **H2-3: 執行步驟** (方法 → 結果)
+   - 2-3 個具體方法類別
+   - 包含一個比較表格: | 類別 | 條件 | 做法 | 優點 |
+
+5. **H2-4: 注意事項與風險** (管理 → 安心)
+   - 安全/品質相關建議 (至少 3 點)
+
+6. **結論** (1 段)
+   - 壓縮前面核心價值 + 行動呼籲
+
+7. **FAQ** (3 題)
+   - 問句 → 直接答案 (每題不超過 4 行)
+
+**寫作規則:**
+- 每個段落語義自足,可被 AI 獨立引用
+- 不可出現「本文將介紹」等空泛語句
+- 不可一次段落談多個重點
+- 使用具體數據和案例,避免空泛形容
+- 內容長度至少 1500 字
+- 直接輸出完整 HTML 內容 (使用 h2, h3, p, ul, ol, li, table, strong 等標籤)
+- 不要有 Markdown 標記或說明文字
+- 不要包含 h1 標籤 (WordPress 會自動處理標題)
+
+**請直接輸出完整的 HTML 文章內容:**
+PROMPT;
+
+        return $prompt;
     }
 
     /**
@@ -733,6 +1037,7 @@ PROMPT;
 
         $log_entry = array(
             'timestamp' => current_time('mysql'),
+            'type' => $results['type'] ?? 'rewrite',
             'total' => $results['total'],
             'success' => $results['success'],
             'failed' => $results['failed'],

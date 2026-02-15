@@ -249,6 +249,134 @@ $next_scheduled = wp_next_scheduled(Gasker_Content_Refresher::CRON_HOOK);
                     </table>
                 </div>
 
+                <!-- AI 新增文章設定 -->
+                <div class="gcr-section">
+                    <h2><?php _e('AI 新增文章', 'gasker-content-refresher'); ?></h2>
+
+                    <table class="form-table">
+                        <tr>
+                            <th scope="row">
+                                <?php _e('啟用功能', 'gasker-content-refresher'); ?>
+                            </th>
+                            <td>
+                                <label>
+                                    <input type="checkbox"
+                                           name="<?php echo Gasker_Content_Refresher::OPTION_NAME; ?>[enable_new_posts]"
+                                           value="1"
+                                           <?php checked($settings['enable_new_posts'] ?? false, true); ?>>
+                                    <?php _e('啟用 AI 自動生成新文章', 'gasker-content-refresher'); ?>
+                                </label>
+                                <p class="description">
+                                    <?php _e('開啟後,系統會每天根據題目清單自動生成全新文章', 'gasker-content-refresher'); ?>
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">
+                                <label for="new_posts_per_day">
+                                    <?php _e('每日生成篇數', 'gasker-content-refresher'); ?>
+                                </label>
+                            </th>
+                            <td>
+                                <input type="number"
+                                       id="new_posts_per_day"
+                                       name="<?php echo Gasker_Content_Refresher::OPTION_NAME; ?>[new_posts_per_day]"
+                                       value="<?php echo esc_attr($settings['new_posts_per_day'] ?? 1); ?>"
+                                       min="1"
+                                       max="10"
+                                       class="small-text">
+                                <p class="description">
+                                    <?php _e('每天自動生成的新文章數量 (建議 1-3 篇,避免 Token 消耗過大)', 'gasker-content-refresher'); ?>
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">
+                                <label for="new_post_topics">
+                                    <?php _e('題目清單', 'gasker-content-refresher'); ?>
+                                </label>
+                            </th>
+                            <td>
+                                <textarea id="new_post_topics"
+                                          name="<?php echo Gasker_Content_Refresher::OPTION_NAME; ?>[new_post_topics]"
+                                          rows="8"
+                                          class="large-text"
+                                          placeholder="<?php _e("每行一個題目,例如:\nAI 自動化工作流入門指南\nn8n 與 WordPress 整合實戰\nSEO 2026 最新趨勢分析", 'gasker-content-refresher'); ?>"
+                                          ><?php echo esc_textarea($settings['new_post_topics'] ?? ''); ?></textarea>
+                                <p class="description">
+                                    <?php
+                                    $used_count = count(get_option('gcr_used_topics', array()));
+                                    $total_count = count(array_filter(array_map('trim', explode("\n", $settings['new_post_topics'] ?? ''))));
+                                    printf(
+                                        __('每行填入一個文章題目。系統會按順序使用,用完後自動重置。(已使用 %d / 共 %d 個)', 'gasker-content-refresher'),
+                                        $used_count,
+                                        $total_count
+                                    );
+                                    ?>
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">
+                                <label for="new_post_category">
+                                    <?php _e('目標分類', 'gasker-content-refresher'); ?>
+                                </label>
+                            </th>
+                            <td>
+                                <select id="new_post_category"
+                                        name="<?php echo Gasker_Content_Refresher::OPTION_NAME; ?>[new_post_category]">
+                                    <option value="0"><?php _e('-- 不指定 --', 'gasker-content-refresher'); ?></option>
+                                    <?php foreach ($categories as $category): ?>
+                                        <option value="<?php echo esc_attr($category->term_id); ?>"
+                                                <?php selected($settings['new_post_category'] ?? 0, $category->term_id); ?>>
+                                            <?php echo esc_html($category->name); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <p class="description">
+                                    <?php _e('新文章會自動歸入此分類', 'gasker-content-refresher'); ?>
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">
+                                <?php _e('新文章狀態', 'gasker-content-refresher'); ?>
+                            </th>
+                            <td>
+                                <fieldset>
+                                    <label>
+                                        <input type="radio"
+                                               name="<?php echo Gasker_Content_Refresher::OPTION_NAME; ?>[new_post_status]"
+                                               value="draft"
+                                               <?php checked($settings['new_post_status'] ?? 'draft', 'draft'); ?>>
+                                        <?php _e('草稿 (需手動審核後發布) - 推薦', 'gasker-content-refresher'); ?>
+                                    </label>
+                                    <br>
+                                    <label>
+                                        <input type="radio"
+                                               name="<?php echo Gasker_Content_Refresher::OPTION_NAME; ?>[new_post_status]"
+                                               value="pending"
+                                               <?php checked($settings['new_post_status'] ?? 'draft', 'pending'); ?>>
+                                        <?php _e('待審閱', 'gasker-content-refresher'); ?>
+                                    </label>
+                                    <br>
+                                    <label>
+                                        <input type="radio"
+                                               name="<?php echo Gasker_Content_Refresher::OPTION_NAME; ?>[new_post_status]"
+                                               value="publish"
+                                               <?php checked($settings['new_post_status'] ?? 'draft', 'publish'); ?>>
+                                        <?php _e('直接發布', 'gasker-content-refresher'); ?>
+                                    </label>
+                                </fieldset>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
                 <!-- 通知設定 -->
                 <div class="gcr-section">
                     <h2><?php _e('Email 通知', 'gasker-content-refresher'); ?></h2>
@@ -349,11 +477,23 @@ $next_scheduled = wp_next_scheduled(Gasker_Content_Refresher::CRON_HOOK);
             <!-- 手動操作 -->
             <div class="gcr-panel">
                 <h3><?php _e('手動操作', 'gasker-content-refresher'); ?></h3>
+
+                <p class="gcr-action-label"><?php _e('改寫舊文章', 'gasker-content-refresher'); ?></p>
                 <button type="button" class="button button-primary button-large gcr-run-now" style="width: 100%;">
-                    <?php _e('立即執行一次', 'gasker-content-refresher'); ?>
+                    <?php _e('立即改寫', 'gasker-content-refresher'); ?>
+                </button>
+                <p class="description" style="margin-bottom: 15px;">
+                    <?php _e('立即改寫符合條件的舊文章', 'gasker-content-refresher'); ?>
+                </p>
+
+                <hr style="margin: 15px 0;">
+
+                <p class="gcr-action-label"><?php _e('生成新文章', 'gasker-content-refresher'); ?></p>
+                <button type="button" class="button button-large gcr-generate-now" style="width: 100%; background: #2e7d32; border-color: #1b5e20; color: #fff;">
+                    <?php _e('立即生成', 'gasker-content-refresher'); ?>
                 </button>
                 <p class="description">
-                    <?php _e('立即處理符合條件的文章 (用於測試或補跑)', 'gasker-content-refresher'); ?>
+                    <?php _e('根據題目清單立即生成新文章', 'gasker-content-refresher'); ?>
                 </p>
             </div>
 
@@ -386,6 +526,7 @@ $next_scheduled = wp_next_scheduled(Gasker_Content_Refresher::CRON_HOOK);
                 <thead>
                     <tr>
                         <th><?php _e('執行時間', 'gasker-content-refresher'); ?></th>
+                        <th><?php _e('類型', 'gasker-content-refresher'); ?></th>
                         <th><?php _e('總計', 'gasker-content-refresher'); ?></th>
                         <th><?php _e('成功', 'gasker-content-refresher'); ?></th>
                         <th><?php _e('失敗', 'gasker-content-refresher'); ?></th>
@@ -397,6 +538,16 @@ $next_scheduled = wp_next_scheduled(Gasker_Content_Refresher::CRON_HOOK);
                     <?php foreach ($logs as $index => $log): ?>
                         <tr>
                             <td><?php echo esc_html($log['timestamp']); ?></td>
+                            <td>
+                                <?php
+                                $log_type = $log['type'] ?? 'rewrite';
+                                if ($log_type === 'generate') {
+                                    echo '<span class="gcr-type-badge gcr-type-generate">' . __('新增', 'gasker-content-refresher') . '</span>';
+                                } else {
+                                    echo '<span class="gcr-type-badge gcr-type-rewrite">' . __('改寫', 'gasker-content-refresher') . '</span>';
+                                }
+                                ?>
+                            </td>
                             <td><?php echo esc_html($log['total']); ?></td>
                             <td class="gcr-success"><?php echo esc_html($log['success']); ?></td>
                             <td class="gcr-failed"><?php echo esc_html($log['failed']); ?></td>
@@ -408,7 +559,7 @@ $next_scheduled = wp_next_scheduled(Gasker_Content_Refresher::CRON_HOOK);
                             </td>
                         </tr>
                         <tr class="gcr-log-details" id="gcr-log-details-<?php echo $index; ?>" style="display: none;">
-                            <td colspan="6">
+                            <td colspan="7">
                                 <table class="widefat">
                                     <thead>
                                         <tr>

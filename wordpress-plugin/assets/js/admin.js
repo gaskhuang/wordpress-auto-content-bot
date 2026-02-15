@@ -18,8 +18,11 @@
          * 綁定事件
          */
         bindEvents: function() {
-            // 立即執行按鈕
+            // 立即執行改寫按鈕
             $('.gcr-run-now').on('click', this.runNow.bind(this));
+
+            // 立即生成新文章按鈕
+            $('.gcr-generate-now').on('click', this.generateNow.bind(this));
 
             // 清除日誌按鈕
             $('.gcr-clear-logs').on('click', this.clearLogs.bind(this));
@@ -86,6 +89,63 @@
                 },
                 error: function(xhr, status, error) {
                     GCR.showNotification('發生錯誤: ' + error, 'error');
+                },
+                complete: function() {
+                    $btn.removeClass('loading').prop('disabled', false).html(originalText);
+                }
+            });
+        },
+
+        /**
+         * 立即生成新文章
+         */
+        generateNow: function() {
+            const $btn = $('.gcr-generate-now');
+
+            if ($btn.hasClass('loading')) {
+                return;
+            }
+
+            if (!confirm('確定要立即生成新文章嗎？')) {
+                return;
+            }
+
+            $btn.addClass('loading').prop('disabled', true);
+
+            const originalText = $btn.text();
+            $btn.html('<span class="gcr-spinner"></span>AI 生成中...');
+
+            $.ajax({
+                url: gcrAjax.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'gcr_generate_now',
+                    nonce: gcrAjax.nonce
+                },
+                timeout: 120000, // 2 分鐘超時（AI 生成較慢）
+                success: function(response) {
+                    if (response.success) {
+                        const result = response.data;
+                        const message = `新文章生成完成！\n成功: ${result.success} 篇\n失敗: ${result.failed} 篇`;
+
+                        GCR.showNotification(message, 'success');
+
+                        // 重新載入頁面以顯示新日誌
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000);
+                    } else {
+                        GCR.showNotification(response.data.message || '生成失敗', 'error');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    let errorMsg = '發生錯誤: ';
+                    if (status === 'timeout') {
+                        errorMsg += 'AI 生成超時，請稍後再試';
+                    } else {
+                        errorMsg += error;
+                    }
+                    GCR.showNotification(errorMsg, 'error');
                 },
                 complete: function() {
                     $btn.removeClass('loading').prop('disabled', false).html(originalText);
