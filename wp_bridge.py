@@ -1,9 +1,18 @@
 import requests
 import json
 import os
+import logging
 from requests.auth import HTTPBasicAuth
 from dotenv import load_dotenv
 from datetime import datetime
+
+# 設定日誌
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+if not logger.handlers:
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter('%(asctime)s [%(levelname)s] %(message)s', datefmt='%H:%M:%S'))
+    logger.addHandler(handler)
 
 class WordPressBridge:
     def __init__(self, site_url, username, app_password):
@@ -34,8 +43,10 @@ class WordPressBridge:
             response = self.session.get(self.categories_url, auth=self.auth, headers=self.headers, params={"per_page": 100})
             if response.status_code == 200:
                 return response.json()
+            logger.warning(f"取得分類失敗，狀態碼: {response.status_code}")
             return []
-        except:
+        except Exception as e:
+            logger.error(f"取得分類時發生錯誤: {e}")
             return []
 
     def get_tags(self):
@@ -44,8 +55,10 @@ class WordPressBridge:
             response = self.session.get(self.tags_url, auth=self.auth, headers=self.headers, params={"per_page": 100})
             if response.status_code == 200:
                 return response.json()
+            logger.warning(f"取得標籤失敗，狀態碼: {response.status_code}")
             return []
-        except:
+        except Exception as e:
+            logger.error(f"取得標籤時發生錯誤: {e}")
             return []
 
     def upload_media(self, file_path, title=None):
@@ -75,7 +88,7 @@ class WordPressBridge:
                 media_headers['Content-Type'] = 'application/octet-stream'
 
             try:
-                print(f"📤 正在上傳媒體: {file_name}...")
+                logger.info(f"📤 正在上傳媒體: {file_name}...")
                 response = self.session.post(
                     self.media_url,
                     data=f,
@@ -85,14 +98,14 @@ class WordPressBridge:
                 )
                 if response.status_code == 201:
                     data = response.json()
-                    print(f"✅ 媒體上傳成功! ID: {data.get('id')}")
+                    logger.info(f"✅ 媒體上傳成功! ID: {data.get('id')}")
                     return data
                 else:
-                    print(f"❌ 媒體上傳失敗! 狀態碼: {response.status_code}")
-                    print(f"回應內容: {response.text}")
+                    logger.error(f"❌ 媒體上傳失敗! 狀態碼: {response.status_code}")
+                    logger.debug(f"回應內容: {response.text}")
                     return None
             except Exception as e:
-                print(f"‼️ 上傳過程出錯: {e}")
+                logger.error(f"‼️ 上傳過程出錯: {e}")
                 return None
 
     def post_article(self, title, content, status='pending', categories=None, tags=None, featured_media=None):
@@ -140,19 +153,18 @@ class WordPressBridge:
             )
             
             if response.status_code == 201:
-                print(f"✅ 成功發布文章: {title}")
+                logger.info(f"✅ 成功發布文章: {title}")
                 return response.json()
             else:
-                print(f"❌ 發布失敗! 狀態碼: {response.status_code}")
-                # 如果是 403，列印出 HTML 標題部分以便診斷
+                logger.error(f"❌ 發布失敗! 狀態碼: {response.status_code}")
                 if response.status_code == 403:
-                    print("💡 提示: 伺服器拒絕了發文請求。這通常是防火牆(WAF)阻擋了 API 寫入動作。")
+                    logger.warning("💡 提示: 伺服器拒絕了發文請求。這通常是防火牆(WAF)阻擋了 API 寫入動作。")
                     if "<title>" in response.text:
                         error_title = response.text.split('<title>')[1].split('</title>')[0]
-                        print(f"伺服器回應標題: {error_title}")
+                        logger.warning(f"伺服器回應標題: {error_title}")
                 return None
         except Exception as e:
-            print(f"‼️ 請求過程發生錯誤: {e}")
+            logger.error(f"‼️ 請求過程發生錯誤: {e}")
             return None
 
     def update_article(self, post_id, title=None, content=None, status=None, categories=None, tags=None, featured_media=None):
@@ -189,7 +201,7 @@ class WordPressBridge:
         post_headers["Referer"] = self.site_url + "/"
 
         try:
-            print(f"🔄 正在更新文章 ID: {post_id}...")
+            logger.info(f"🔄 正在更新文章 ID: {post_id}...")
             response = self.session.post(
                 update_url, 
                 json=data, 
@@ -199,17 +211,16 @@ class WordPressBridge:
             )
             
             if response.status_code == 200:
-                print(f"✅ 成功更新文章: {post_id}")
+                logger.info(f"✅ 成功更新文章: {post_id}")
                 return response.json()
             else:
-                print(f"❌ 更新失敗! 狀態碼: {response.status_code}")
-                # 錯誤診斷
+                logger.error(f"❌ 更新失敗! 狀態碼: {response.status_code}")
                 if response.status_code == 403 and "<title>" in response.text:
                    error_title = response.text.split('<title>')[1].split('</title>')[0]
-                   print(f"伺服器回應標題: {error_title}")
+                   logger.warning(f"伺服器回應標題: {error_title}")
                 return None
         except Exception as e:
-            print(f"‼️ 更新請求過程發生錯誤: {e}")
+            logger.error(f"‼️ 更新請求過程發生錯誤: {e}")
             return None
 
 if __name__ == "__main__":

@@ -46,8 +46,3 @@ if __name__ == "__main__":
     input_file = "/Users/gask/Downloads/resumes_data_251-260_optime.json"
     output_folder = "/Users/gask/Downloads/split_resumes"
     split_json_to_txt(input_file, output_folder)
-
-if __name__ == "__main__":
-    input_file = "/Users/gask/Downloads/resumes_data_251-260_optime.json"
-    output_folder = "/Users/gask/Downloads/split_resumes"
-    split_json_to_txt(input_file, output_folder)
